@@ -1,7 +1,6 @@
 <?php
 include "data/includes.php";
 define('ASSETS_ROOT','/assets/');
-
 ?>
 <!doctype html>
 <html lang="ru">

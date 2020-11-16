@@ -19,16 +19,16 @@
 <?php $result = ("data/usersrequests/$fileUserName");?>
 <?php if(is_file($result)):?>
 <?php $result = file("data/usersrequests/$fileUserName"); ?>
+    <?php $allUserView = array_combine($keysUserView, $result);?>
 <tr class="table_row">
-
-    <td><?= $result[0]?></td>
-    <td><?= $result[1]?></td>
-    <td><?= $result[2]?></td>
-    <td><?= $result[3]?></td>
-    <td><?= $result[4]?></td>
+    <td><?= $allUserView['login']?></td>
+    <td><?= $allUserView['name']?></td>
+    <td><?= $allUserView['surname']?></td>
+    <td><?= $allUserView['email']?></td>
+    <td><?= $allUserView['address']?></td>
     <td>
-        <a href="/user/<?php echo $result[0]?>/view" class="btn-users">View</a>
-        <a href="/user/<?php echo $result[0]?>/update"
+        <a href="/user/<?php echo $allUserView['login']?>/view" class="btn-users">View</a>
+        <a href="/user/<?php echo $allUserView['login']?>/update"
            class="btn-users">Update</a>
         <a  onclick="return confirm('Вы уверены, что хотите удалить пользователя?')" href="/user/<?php echo $result[0]?>/delete" class="btn-users">Delete</a>
     </td>

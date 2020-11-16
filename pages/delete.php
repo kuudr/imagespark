@@ -10,5 +10,4 @@ deleteUser($getUserId);
             </div>
         </div>
     </div>
-
 </main>

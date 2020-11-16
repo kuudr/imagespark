@@ -35,36 +35,14 @@ foreach ($routeArr as $route => $file) {
     }
 }
 
+
+//взять id пользователя
+
 if (isset($param['id'])){
     $getUserId = $param['id'];
 }
 
 
-
-//User update
-
-
-function userUpdate($getUserId){
-    $viewArr = userView($getUserId);
-    $userUpdateArr = [
-        'login' => $viewArr[0],
-        'name' => $viewArr[1],
-        'surname' => $viewArr[2],
-        'email' => $viewArr[3],
-        'address' => $viewArr[4],
-    ];
-    return $userUpdateArr;
-}
-
-
-function reWrite($getUserId){
-    $fileRew = $getUserId .'.json';
-
-    $pathRew = "data/usersrequests/$fileRew";
-
-    file_put_contents($pathRew, userUpdate($getUserId) . PHP_EOL);
-
-}
 
 
 

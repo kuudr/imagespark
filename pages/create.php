@@ -1,5 +1,5 @@
 <?php
-
+//Валидация формы
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = [];
     $loginExist = strip_tags(addslashes($_POST['login']));
@@ -35,14 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors[] = 'Адрес должен быть больше десяти символов';
         }
     }
-
     if (count($errors) > 0) {
         $errorStringUserAccess = '';
         foreach ($errors as $error) {
             $errorStringUserAccess .= "<p class=\"error_form\" style =  \" color: red\">$error</p>";
         }
     }
-
     else {
         $login = strip_tags(addslashes($_POST['login']));
         $name = strip_tags(addslashes($_POST['name']));
@@ -52,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $eol = PHP_EOL;
         $fileNameUsers =  $login . '.json';
         $resultUserRequest = "{$login}{$eol}{$name}{$eol}{$surname}{$eol}{$email}{$eol}{$address}";
-
         file_put_contents("data/usersrequests/$fileNameUsers",$resultUserRequest, FILE_APPEND);
     }
 }
@@ -82,6 +79,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input value="<?php if (isset($_POST['address'])) echo $_POST['address'] ?>" type="text" name="address" placeholder="Адрес*">
         </div>
         <input  class="btn bcg-green font-white roboto" type="submit" name="web_form_submit" value="ОТПРАВИТЬ">
-
     </form>
 </div>

@@ -1,27 +1,29 @@
 <?php
 $arrView = userView($getUserId);
+$viewUser = array_combine($keysUserView, $arrView);
+var_dump($viewUser);
 ?>
 <table class="show_users">
     <tbody>
     <tr class="table_row">
         <th>Логин:</th>
-        <td><?= $arrView[0]?></td>
+        <td><?= $viewUser['login']?></td>
     </tr>
     <tr class="table_row">
         <th>Имя:</th>
-        <td><?= $arrView[1]?></td>
+        <td><?= $viewUser['name']?></td>
     </tr>
     <tr class="table_row">
         <th>Фамилия:</th>
-        <td><?= $arrView[2]?></td>
+        <td><?= $viewUser['surname']?></td>
     </tr>
     <tr class="table_row">
         <th>Email:</th>
-        <td><?= $arrView[3]?></td>
+        <td><?= $viewUser['email']?></td>
     </tr>
     <tr class="table_row">
         <th>Адрес:</th>
-        <td><?= $arrView[4]?></td>
+        <td><?= $viewUser['address']?></td>
     </tr>
     </tbody>
 </table>
