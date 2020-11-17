@@ -1,5 +1,5 @@
 <?php
-deleteUser($getUserId);
+deleteUser($getUserById);
 ?>
 <main>
     <div class="main__center">

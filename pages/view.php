@@ -1,7 +1,7 @@
 <?php
-//$arrView = userView($router->getRouteParam('id'));
-$getUserId = $params = Router::getInstance()->getRouteParams($params['id']);
-$arrView = userView($getUserId);
+//$params = Router::getInstance()->getRouteParams();
+//$getUserById = ($params['id']);
+$arrView = userView($getUserById);
 $viewUser = array_combine($keysUserView, $arrView);
 var_dump($viewUser);
 //

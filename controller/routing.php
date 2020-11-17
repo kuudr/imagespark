@@ -62,7 +62,7 @@ class Router
                 return $file;
             }
         }
-//        die(404);
+        die('404');
     }
 
     public function getRouteParams()

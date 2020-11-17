@@ -35,16 +35,12 @@ function reWrite($getUserId){
     file_put_contents($pathRew, userUpdate($getUserId) . PHP_EOL);
 }
 
-
-
-
-
-
-//DD
-function dd($var) {
-    var_dump($var);
-    die();
-}
+//
+////DD
+//function dd($var) {
+//    var_dump($var);
+//    die();
+//}
 
 
 

@@ -1,6 +1,6 @@
 <?php
 
-$arrUpdateUser = userUpdate($getUserId);
+$arrUpdateUser = userUpdate($getUserById);
 //reWrite($getUserId);
 
 ?>

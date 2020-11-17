@@ -3,6 +3,9 @@ include "data/includes.php";
 define('ASSETS_ROOT','/assets/');
 $router = Router::getInstance()->parse();
 $params = Router::getInstance()->getRouteParams();
+if (isset($params['id'])){
+    $getUserById = ($params['id']);
+}
 ?>
 <!doctype html>
 <html lang="ru">
