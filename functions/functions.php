@@ -38,6 +38,8 @@ function reWrite($getUserId){
 
 
 
+
+
 //DD
 function dd($var) {
     var_dump($var);

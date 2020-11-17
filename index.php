@@ -1,6 +1,8 @@
 <?php
 include "data/includes.php";
 define('ASSETS_ROOT','/assets/');
+$router = Router::getInstance()->parse();
+$params = Router::getInstance()->getRouteParams();
 ?>
 <!doctype html>
 <html lang="ru">
@@ -32,7 +34,7 @@ define('ASSETS_ROOT','/assets/');
             </nav>
         </header>
         <main>
-            <?php include $includeFile?>
+            <?php include $router;?>
         </main>
     </div>
 </div>
