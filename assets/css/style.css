@@ -116,7 +116,9 @@ nav {
 }
 .error_form{
     margin: 3px;
+    color: red;
 }
+
 .show_users{
     text-align: left;
     margin: 0 auto;

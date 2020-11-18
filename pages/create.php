@@ -1,8 +1,13 @@
 <?php
+
+$userInfo = new getFormInfo();
+$userInfo->getUserInfo();
+$userInfo->checkOut();
+var_dump($userInfo);
 //Валидация формы
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = [];
-    if (mb_strlen($_POST['login']) == 0) {
+    if (mb_strlen($userInfo) == 0) {
         $errors[] = 'Не заполнен логин';
     } else {
         if (mb_strlen($_POST['login']) < 2) {
@@ -36,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (count($errors) > 0) {
         $errorStringUserAccess = '';
         foreach ($errors as $error) {
-            $errorStringUserAccess .= "<p class=\"error_form\" style =  \" color: red\">$error</p>";
+            $errorStringUserAccess .= "<p class=\"error_form\">$error</p>";
         }
     }
     else {

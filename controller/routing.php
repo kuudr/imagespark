@@ -20,7 +20,6 @@ class Router
 
         ];
     }
-
     public static function getInstance(): Router
     {
         if (null === self::$_instance) {
