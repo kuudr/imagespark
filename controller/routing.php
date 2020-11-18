@@ -1,12 +1,9 @@
 <?php
-
-
 class Router
 {
     private $routeParams;
     private array $routes;
     public static $_instance;
-
     public function __construct()
     {
         $this->routes = [
@@ -56,15 +53,12 @@ class Router
 
             }
             if ($match) {
-//                require $file;
-//                break;
                 $this->routeParams = $param;
                 return $file;
             }
         }
         die('404');
     }
-
     public function getRouteParams()
     {
         return $this->routeParams;

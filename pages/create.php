@@ -2,8 +2,6 @@
 //Валидация формы
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = [];
-    $loginExist = strip_tags(addslashes($_POST['login']));
-    $fileExist = $loginExist . '.json';
     if (mb_strlen($_POST['login']) == 0) {
         $errors[] = 'Не заполнен логин';
     } else {
