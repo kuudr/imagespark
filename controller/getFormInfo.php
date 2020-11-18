@@ -6,7 +6,7 @@ class getFormInfo{
         $this->formInfo = $_POST;
         return $this->formInfo;
     }
-    function getUserInfo(){
+    function getFormInfo(){
         return $this->formInfo;
     }
     public function checkOut(){
@@ -29,7 +29,9 @@ class getFormInfo{
                     $errors[] =  'Адрес должен быть больше 10 символов';
                     break;
             }
+        }if (count($errors) == 0){
             return true;
         }
     }
 }
+

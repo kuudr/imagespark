@@ -7,4 +7,5 @@ include 'data.php';
 
 
 
-include "model/getFormInfo.php";
+include "controller/getFormInfo.php";
+include "model/userFormModel.php";

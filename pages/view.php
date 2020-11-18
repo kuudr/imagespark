@@ -1,4 +1,5 @@
 <?php
+
 //$params = Router::getInstance()->getRouteParams();
 //$getUserById = ($params['id']);
 $arrView = userView($getUserById);
