@@ -1,3 +1,7 @@
+<?php
+
+
+?>
 <div class="main__center">
     <a class="btn" href="/users/create">Создать пользователя </a>
 </div>
