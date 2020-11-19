@@ -20,7 +20,6 @@ class Router
 
         ];
     }
-
     public static function getInstance(): Router
     {
         if (null === self::$_instance) {
@@ -48,7 +47,6 @@ class Router
 
                 } elseif ($routeParts[$key] !== $uriParts[$key]) {
                     $match = false;
-
                 }
 
             }
@@ -56,8 +54,15 @@ class Router
                 $this->routeParams = $param;
                 return $file;
             }
+
         }
         die('404');
+    }
+    public function getFormInfo(){
+        $formArray = $_POST;
+        if (isset($formArray)){
+            return $formArray;
+        }
     }
     public function getRouteParams()
     {
