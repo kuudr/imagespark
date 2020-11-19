@@ -1,12 +1,14 @@
 <?php
-
-//$params = Router::getInstance()->getRouteParams();
-//$getUserById = ($params['id']);
+$test = new usersModel();
+$test->getUsers();
+echo '<hr>';
 $arrView = userView($getUserById);
 $viewUser = array_combine($keysUserView, $arrView);
 var_dump($viewUser);
-//
-//$router->getVar("password", 0);
+
+
+
+
 
 ?>
 <table class="show_users">

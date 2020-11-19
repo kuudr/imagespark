@@ -1,6 +1,7 @@
 <?php
 include "data/includes.php";
 define('ASSETS_ROOT','/assets/');
+use Controller\Router;
 $router = Router::getInstance()->parse();
 $params = Router::getInstance()->getRouteParams();
 if (isset($params['id'])){

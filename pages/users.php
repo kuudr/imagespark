@@ -17,6 +17,7 @@
 ?>
 <?php foreach ($filesUsers as $fileUserName):?>
 <?php $result = ("data/usersrequests/$fileUserName");?>
+
 <?php if(is_file($result)):?>
 <?php $result = file("data/usersrequests/$fileUserName"); ?>
     <?php $allUserView = array_combine($keysUserView, $result);?>
