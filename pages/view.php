@@ -1,10 +1,12 @@
 <?php
 $test = new usersModel();
 $test->getUsers();
+$test->userId;
+var_dump($test->getUser());
 echo '<hr>';
 $arrView = userView($getUserById);
 $viewUser = array_combine($keysUserView, $arrView);
-var_dump($viewUser);
+//var_dump($viewUser);
 
 
 
