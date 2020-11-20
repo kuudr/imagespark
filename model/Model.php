@@ -1,6 +1,6 @@
 <?php
 class usersModel {
-    protected $allUsers;
+
     public $userId;
     protected $userFile;
 
@@ -9,29 +9,29 @@ class usersModel {
      */
     public function __construct()
     {
-        $this->userId = Controller\Router::getInstance()->getRouteParams();
-        $this->allUsers = scandir('./data/usersrequests/');
         $this->userFile = $this->userId['id'] . '.json';
-        return $this->userId;
     }
 
     /**
      * @return array Получаем список всех пользователей из директории
      */
     public function getUsers(){
-        foreach ($this->allUsers as $user){
+        $allUsers = scandir('./data/usersrequests/');
+        foreach ($allUsers as $user){
             $getUser = ("data/usersrequests/$user");
             if (is_file($getUser)){
                 $getUser = file("data/usersrequests/$user");
-                $getUser = [
+                $getUsers = [
                     'login' => $getUser[0],
                     'name' => $getUser[1],
                     'surname' => $getUser[2],
                     'email' => $getUser[3],
                     'address' => $getUser[4],
                 ];
-                return $getUser;
+//                return $getUsers;
+                var_dump($getUsers);
             }
+
         }
     }
 
@@ -41,6 +41,8 @@ class usersModel {
     }
 
     protected function  createUser(){
+
+
 
     }
 

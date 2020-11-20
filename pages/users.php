@@ -1,4 +1,6 @@
 <?php
+$usersShow = new usersModel();
+var_dump($usersShow->getUsers());
 
 
 ?>

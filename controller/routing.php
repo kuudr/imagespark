@@ -59,6 +59,12 @@ class Router
         }
         die('404');
     }
+    public function getFormInfo(){
+        $formArray = $_POST;
+        if (isset($formArray)){
+            return $formArray;
+        }
+    }
     public function getRouteParams()
     {
         return $this->routeParams;
