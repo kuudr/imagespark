@@ -1,5 +1,5 @@
 <?php
-namespace Controller;
+namespace Router;
 //Валидация формы
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $formInfo = Router::getInstance()->getFormInfo();

@@ -1,9 +1,10 @@
 <?php
 include "data/includes.php";
 define('ASSETS_ROOT','/assets/');
-use Controller\Router;
-$router = Router::getInstance()->parse();
+use Core\Router;
+
 $params = Router::getInstance()->getRouteParams();
+$router = Router::getInstance()->parse();
 if (isset($params['id'])){
     $getUserById = ($params['id']);
 }
@@ -38,7 +39,7 @@ if (isset($params['id'])){
             </nav>
         </header>
         <main>
-            <?php include $router;?>
+                <?php include $router;?>
         </main>
     </div>
 </div>

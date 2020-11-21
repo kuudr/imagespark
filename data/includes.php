@@ -1,6 +1,8 @@
 <?php
 include 'functions/functions.php';
-include 'controller/routing.php';
+include 'Core/Router.php';
 include 'data.php';
 
-include "model/Model.php";
+include "Core/Model.php";
+include "Core/View.php";
+//include "Controllers/UserController.php";

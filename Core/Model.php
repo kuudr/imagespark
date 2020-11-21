@@ -1,5 +1,7 @@
 <?php
-class usersModel {
+
+class usersModel
+{
 
     public $userId;
     protected $userFile;
@@ -15,11 +17,12 @@ class usersModel {
     /**
      * @return array Получаем список всех пользователей из директории
      */
-    public function getUsers(){
+    public function getUsers()
+    {
         $allUsers = scandir('./data/usersrequests/');
-        foreach ($allUsers as $user){
+        foreach ($allUsers as $user) {
             $getUser = ("data/usersrequests/$user");
-            if (is_file($getUser)){
+            if (is_file($getUser)) {
                 $getUser = file("data/usersrequests/$user");
                 $getUsers = [
                     'login' => $getUser[0],
@@ -35,22 +38,25 @@ class usersModel {
         }
     }
 
-    public function getUser(){
+    public function getUser()
+    {
         $viewUserFile = file_get_contents("data/usersrequests/$this->userFile");
         return (explode("\n", $viewUserFile));
     }
 
-    protected function  createUser(){
-
+    protected function createUser()
+    {
 
 
     }
 
-    protected function  updateUser(){
+    protected function updateUser()
+    {
 
     }
 
-    protected function  deleteUser(){
+    protected function deleteUser()
+    {
 
     }
 
