@@ -5,4 +5,4 @@ include 'data.php';
 
 include "Core/Model.php";
 include "Core/View.php";
-//include "Controllers/UserController.php";
+include "Controllers/UsersController.php";

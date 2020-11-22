@@ -1,14 +1,11 @@
 <?php
-
 namespace Core;
-use Controllers\userController;
-
+use Controllers\usersController;
 class Router
 {
     private $routeParams;
     private $routes;
     public static $_instance;
-
     public function __construct()
     {
         $this->routes = [
@@ -85,28 +82,23 @@ class Router
             }
             if ($match) {
                 if (isset($file['action'])) {
-                    var_dump($file['action']);
                     include  'Controllers/' . $file['controller'] . '.php';
-                    $action = new userController();
-                    $action->$file['action'];
-                    var_dump($action);
-
-
-
+                    var_dump($file['action']);
+                    $action = new usersController();
+                    $action->{$file["action"]}();
+                    break;
                 }
+                die('404');
             }
         }
-
-
-//        die('404');
     }
 
-//    public function getFormInfo(){
-//        $formArray = $_POST;
-//        if (isset($formArray)){
-//            return $formArray;
-//        }
-//    }
+    public function getFormInfo(){
+        $formArray = $_POST;
+        if (isset($formArray)){
+            return $formArray;
+        }
+    }
     public function getRouteParams()
     {
         return $this->routeParams;

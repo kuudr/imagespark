@@ -39,7 +39,7 @@ if (isset($params['id'])){
             </nav>
         </header>
         <main>
-                <?php include $router;?>
+<!--                --><?php //include $router;?>
         </main>
     </div>
 </div>
