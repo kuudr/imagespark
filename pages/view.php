@@ -1,9 +1,10 @@
 <?php
+use Model\usersModel;
 $userShow = new usersModel();
 var_dump($userShow->getUser());
 echo '<hr>';
-$arrView = userView($getUserById);
-$viewUser = array_combine($keysUserView, $arrView);
+//$arrView = userView($getUserById);
+//$viewUser = array_combine($keysUserView, $arrView);
 //var_dump($viewUser);
 ?>
 <table class="show_users">

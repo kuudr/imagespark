@@ -1,28 +1,18 @@
 <?php
-namespace View;
-
-class viewHomePage{
-
-    public $homePage = 'Домашняя страница';
-
-    /**
-     * @return mixed
-     */
-    public function getHomePage()
-    {
-        echo $this->homePage;
+namespace Core;
+class View
+{
+    public function renderEssence(){
+        return include 'pages/essence.php';
     }
-}
-class viewUsers{
 
-    public $usersPage;
 
-    /**
-     * @return mixed
-     */
-    public function getUsersPage()
-    {
-        $this->usersPage = 'Страница пользователей';
-        return $this->usersPage;
+    public function renderMain(){
+        return include 'pages/main.php';
     }
+
+    public function renderUsers(){
+        return include 'pages/users.php';
+    }
+
 }

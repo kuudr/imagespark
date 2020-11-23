@@ -1,8 +1,7 @@
 <?php
-
+namespace Core;
 class usersModel
 {
-
     public $userId;
     protected $userFile;
 
@@ -11,7 +10,7 @@ class usersModel
      */
     public function __construct()
     {
-        $this->userFile = $this->userId['id'] . '.json';
+//        $this->userFile = $this->userId['id'] . '.json';
     }
 
     /**
@@ -20,22 +19,22 @@ class usersModel
     public function getUsers()
     {
         $allUsers = scandir('./data/usersrequests/');
+        $usersArr = [];
         foreach ($allUsers as $user) {
             $getUser = ("data/usersrequests/$user");
             if (is_file($getUser)) {
                 $getUser = file("data/usersrequests/$user");
                 $getUsers = [
-                    'login' => $getUser[0],
-                    'name' => $getUser[1],
-                    'surname' => $getUser[2],
-                    'email' => $getUser[3],
-                    'address' => $getUser[4],
+                    'login' => trim($getUser[0]),
+                    'name' => trim($getUser[1]),
+                    'surname' => trim($getUser[2]),
+                    'email' => trim($getUser[3]),
+                    'address' => trim($getUser[4]),
                 ];
-//                return $getUsers;
-                var_dump($getUsers);
+                $usersArr[] = $getUsers;
             }
-
         }
+        return $usersArr;
     }
 
     public function getUser()
@@ -59,5 +58,4 @@ class usersModel
     {
 
     }
-
 }

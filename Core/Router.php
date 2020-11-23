@@ -5,49 +5,11 @@ class Router
 {
     private $routeParams;
     private $routes;
-    public static $_instance;
+    private static $_instance;
     public function __construct()
     {
-        $this->routes = [
-
-            '/' =>
-                [
-                    'controller' => 'userController',
-                    'action' => 'mainController',
-                ],
-            '/essence' =>
-                [
-                    'controller' => 'userController',
-                    'action' => 'essenceController',
-                ],
-            '/users' =>
-                [
-                    'controller' => 'userController',
-                    'action' => 'usersController',
-                ],
-            '/users/create' =>
-                [
-                    'controller' => 'userController',
-                    'action' => 'createUser',
-                ],
-            '/user/{id}/update' =>
-                [
-                    'controller' => 'userController',
-                    'action' => 'updateUser',
-                ],
-            '/user/{id}/delete' =>
-                [
-                    'controller' => 'userController',
-                    'action' => 'deleteUser',
-                ],
-            '/user/{id}/view' =>
-                [
-                    'controller' => 'userController',
-                    'action' => 'viewUser',
-                ],
-        ];
+        $this->routes = include 'data/routes.php';
     }
-
 //    Singleton
     public static function getInstance(): Router
     {
@@ -81,14 +43,10 @@ class Router
 
             }
             if ($match) {
-                if (isset($file['action'])) {
-                    include  'Controllers/' . $file['controller'] . '.php';
-                    var_dump($file['action']);
-                    $action = new usersController();
-                    $action->{$file["action"]}();
-                    break;
-                }
-                die('404');
+                include 'Controllers/' . $file['controller'] . '.php';
+                $action = new usersController();
+                $action->{$file["action"]}();
+                break;
             }
         }
     }
