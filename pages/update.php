@@ -1,7 +1,5 @@
 <?php
 
-$arrUpdateUser = userUpdate($getUserById);
-//reWrite($getUserId);
 
 ?>
 

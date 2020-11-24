@@ -1,6 +1,3 @@
-<?php
-deleteUser($getUserById);
-?>
 <main>
     <div class="main__center">
         <div class="main__center">

@@ -1,11 +1,11 @@
 <?php
 //View User
-function userView($getUserId){
-    $userFileName = $getUserId .'.json';
-    $userView = file_get_contents("data/usersrequests/$userFileName");
-    $result = explode("\n", $userView);
-    return $result;
-}
+//function userView($getUserId){
+//    $userFileName = $getUserId .'.json';
+//    $userView = file_get_contents("data/usersrequests/$userFileName");
+//    $result = explode("\n", $userView);
+//    return $result;
+//}
 
 //Delete User
 function deleteUser($getUserId){

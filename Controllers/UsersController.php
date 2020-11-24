@@ -4,21 +4,46 @@ use Core\usersModel;
 use Core\View;
 class usersController
 {
-    protected $users;
 
-    public function __construct(){
-        $this->users = new usersModel();
+    protected $usersModel;
+    protected $view;
 
+
+    public function __construct()
+    {
+        $this->usersModel = new usersModel();
+        $this->view = new View();
+    }
+
+    public function usersAction(){
+        $users = $this->usersModel->getUsers();
+        $this->view->viewUsers($users);
     }
 
 
-    public function createUser(){
-        echo 'Создать пользователя';
+    public function userAction(){
+        $user = $this->usersModel->getUser();
+        $this->view->viewUser($user);
+    }
+
+    public function createAction(){
+        $errors = $this->usersModel->showErrors();
+        $this->view->createUser($errors);
+        $validate = $this->usersModel->validateUser();
+        if (isset($validate)){
+            if (sizeof($validate) == 0){
+                $this->usersModel->createUser();
+                header("Location: /users");
+            }
+        }
     }
 
 
     public function deleteUser(){
-        echo 'Delete';
+        $id = $this->usersModel->userId;
+        $this->view->deleteUser();
+        $this->usersModel->deleteUser($id);
+
     }
 
 
@@ -26,26 +51,14 @@ class usersController
         echo 'Update';
     }
 
-    public function viewUser(){
-        echo 'View user';
-    }
 
-
-    public function usersAction(){
-        $users = new View();
-        $users->renderUsers();
-        $users = new usersModel();
-        $users->getUsers();
-    }
 
     public function mainAction(){
-        $main = new View();
-        $main->renderMain();
+        $this->view->viewMain();
     }
 
 
     public function essenceAction(){
-        $essence = new View();
-        $essence->renderEssence();
+        $this->view->viewEssence();
     }
 }

@@ -3,9 +3,11 @@ include "data/includes.php";
 define('ASSETS_ROOT','/assets/');
 use Core\Router;
 $params = Router::getInstance()->getRouteParams();
-//if (isset($params['id'])){
-//    $getUserById = ($params['id']);
-//}
+
+if (isset($params['id'])){
+    $getUserById = ($params['id']);
+    var_dump($getUserById);
+}
 ?>
 <!doctype html>
 <html lang="ru">
@@ -37,7 +39,7 @@ $params = Router::getInstance()->getRouteParams();
             </nav>
         </header>
         <main>
-                <?php $router = Router::getInstance()->parse(); ?>
+                <?php $router = Router::getInstance()->parse();?>
         </main>
     </div>
 </div>

@@ -5,10 +5,13 @@ class Router
 {
     private $routeParams;
     private $routes;
+    private $userId;
     private static $_instance;
     public function __construct()
     {
         $this->routes = include 'data/routes.php';
+        $this->userId;
+
     }
 //    Singleton
     public static function getInstance(): Router
@@ -46,10 +49,12 @@ class Router
                 include 'Controllers/' . $file['controller'] . '.php';
                 $action = new usersController();
                 $action->{$file["action"]}();
-                break;
+                return $param;
+
             }
         }
     }
+
 
     public function getFormInfo(){
         $formArray = $_POST;
@@ -62,7 +67,6 @@ class Router
         return $this->routeParams;
     }
 }
-
 
 
 

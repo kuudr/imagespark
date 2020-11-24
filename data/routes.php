@@ -18,7 +18,7 @@ return [
     '/users/create' =>
         [
             'controller' => 'usersController',
-            'action' => 'createUser',
+            'action' => 'createAction',
         ],
     '/user/{id}/update' =>
         [
@@ -33,6 +33,6 @@ return [
     '/user/{id}/view' =>
         [
             'controller' => 'usersController',
-            'action' => 'viewUser',
+            'action' => 'userAction',
         ],
 ];

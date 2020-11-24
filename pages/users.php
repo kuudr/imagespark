@@ -1,7 +1,3 @@
-<?php
-use Core\usersModel;
-$usersView = new usersModel();
-?>
 <div class="main__center">
     <a class="btn" href="/users/create">Создать пользователя </a>
 </div>
@@ -15,7 +11,7 @@ $usersView = new usersModel();
         <th></th>
         <th></th>
     </tr>
-<?php foreach ($usersView->getUsers() as $userView):?>
+<?php foreach ($users as $userView):?>
 <tr class="table_row">
     <td><?= $userView['login']?></td>
     <td><?= $userView['name']?></td>
