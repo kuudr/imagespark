@@ -8,24 +8,32 @@ class Model {
 
     protected $attributes = [];
 
-    protected function getAll() {
+    public function getAll() {
         if ($this->storageDirectoryPath == null) {
             throw new \Exception('Директория для хранения данных не указана');
         }
         $dir = scandir($this->storageDirectoryPath);
     }
 
-    protected function create()
+
+    protected function putJson($fileId, $data){
+        return file_put_contents($this->storageDirectoryPath . $fileId . '.json' , json_encode($data, JSON_PRETTY_PRINT));
+    }
+
+    protected function create($info)
     {
+
+
 
     }
 
-    protected function delete()
+    protected function delete($id)
     {
+
 
     }
 
-    protected function update()
+    protected function update($id)
     {
 
     }

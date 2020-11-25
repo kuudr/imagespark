@@ -5,7 +5,6 @@ class usersModel extends Model
 
 {
     public $userId;
-    public $formInfo;
 
     protected $attributes = [
         'login' => '',
@@ -97,13 +96,6 @@ class usersModel extends Model
         }
 
         return $errors;
-    }
-
-    public function showErrors(){
-        $errors = $this->validateUser();
-        if (isset($errors)){
-            return $errors;
-        }
     }
 
 

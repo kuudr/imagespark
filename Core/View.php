@@ -7,6 +7,10 @@ class View
         include $page;
 
     }
+
+    /**
+     * Пользователи
+     */
     public function viewUser($user)
     {
         include 'pages/view.php';
@@ -37,6 +41,18 @@ class View
 
     public function viewMain(){
         return include 'pages/main.php';
+    }
+
+    /**
+     * Статьи
+     */
+
+    public function viewArticles($articles){
+        return include 'pages/articles/articles.php';
+    }
+
+    public function createArticle($errors){
+        return include 'pages/articles/articlesCreate.php';
     }
 
 

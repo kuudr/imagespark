@@ -41,7 +41,7 @@ return [
             'controller' => 'articlesController',
             'action' => 'articlesAction',
         ],
-    '/articles/create' =>
+    '/articles/create/' =>
         [
             'controller' => 'articlesController',
             'action' => 'createAction',
