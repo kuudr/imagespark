@@ -1,6 +1,6 @@
 <?php
 namespace Core;
-use Controllers\usersController;
+
 class Router
 {
     private $routeParams;
@@ -47,23 +47,25 @@ class Router
             }
             if ($match) {
                 include 'Controllers/' . $file['controller'] . '.php';
-                $action = new usersController();
-                $action->{$file["action"]}();
+                $controllerName = 'Controllers\\' . $file['controller'];
+                $controller = new $controllerName();
+                $controller->{$file['action']}();
                 return $param;
-
             }
         }
     }
 
 
-    public function getFormInfo(){
+    public function getFormInfo()
+    {
         $formArray = $_POST;
         if (isset($formArray)){
             return $formArray;
         }
     }
 
-    public function get($name) {
+    public function get($name)
+    {
         if (isset($_POST[$name])) {
             return $_POST[$name];
         }

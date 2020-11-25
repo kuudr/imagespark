@@ -1,7 +1,7 @@
 <?php
 namespace Controllers;
 use Core\Router;
-use Core\usersModel;
+use Models\usersModel;
 use Core\View;
 class usersController
 {
@@ -16,14 +16,16 @@ class usersController
         $this->view = new View();
     }
 
-    public function usersAction(){
+    public function usersAction()
+    {
         $users = $this->usersModel->getUsers();
         $this->view->viewUsers($users);
 //        $this->view->render('pages/users.php', $users);
     }
 
 
-    public function userAction(){
+    public function userAction()
+    {
         $user = $this->usersModel->getUser();
         $this->view->viewUser($user);
 
@@ -44,7 +46,8 @@ class usersController
     }
 
 
-    public function createAction(){
+    public function createAction()
+    {
         if (Router::getInstance()->get('submit') === '1') {
             $formData = Router::getInstance()->getFormInfo();
             // Обрабатываем форму
@@ -67,19 +70,22 @@ class usersController
     }
 
 
-    public function deleteUser(){
+    public function deleteUser()
+    {
         $id = $this->usersModel->userId;
         $this->usersModel->deleteUser($id);
         $this->view->render('pages/delete.php');
     }
 
 
-    public function mainAction(){
+    public function mainAction()
+    {
         $this->view->render('pages/main.php');
     }
 
 
-    public function essenceAction(){
+    public function essenceAction()
+    {
         $this->view->render('pages/essence.php');
     }
 }

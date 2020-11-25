@@ -1,14 +1,14 @@
 <?php
 namespace Controllers;
-use Core\usersModel;
+use Models\usersModel;
 use Core\View;
 
 
-class ArticlesController
+class articlesController
 {
     public function articlesAction()
     {
-
+        echo '121';
     }
 
     public function createAction()
