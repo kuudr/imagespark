@@ -10,11 +10,11 @@
     </tr>
     <tr class="table_row">
         <th>Фамилия:</th>
-        <td><?= $user['email']?></td>
+        <td><?= $user['surname']?></td>
     </tr>
     <tr class="table_row">
         <th>Email:</th>
-        <td><?= $user['surname']?></td>
+        <td><?= $user['email']?></td>
     </tr>
     <tr class="table_row">
         <th>Адрес:</th>

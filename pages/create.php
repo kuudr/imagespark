@@ -26,6 +26,7 @@ if (isset($errors)){
             <input value="<?php if (isset($formInfo['address'])) echo $formInfo['address'] ?>" type="text" name="address" placeholder="Адрес*">
         </div>
         <input  class="btn bcg-green font-white roboto" type="submit" name="web_form_submit" value="ОТПРАВИТЬ">
+        <input type="hidden" name="submit" value="1">
     </form>
 </div>
 

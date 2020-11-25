@@ -1,29 +1,36 @@
-<?php
-
-
-?>
-
 <div class="main__center">
     <h1 class="align-center">Обновить пользователя </h1>
     <form method="POST">
         <div class="contacts__form-group">
-            <input value="<?= $arrUpdateUser['login'] ?>" type="text" name="login" placeholder="login*">
+            <input value="<?= $user['login'] ?>" type="text" name="login" placeholder="login*">
         </div>
         <div class="contacts__form-group">
-            <input value="<?= $arrUpdateUser['name'] ?>"type="text" name="name" placeholder="Имя*">
+            <input value="<?= $user['name'] ?>"type="text" name="name" placeholder="Имя*">
         </div>
         <div class="contacts__form-group">
-            <input value="<?= $arrUpdateUser['surname'] ?>" type="text" name="surname" placeholder="Фамилия*">
+            <input value="<?= $user['surname'] ?>" type="text" name="surname" placeholder="Фамилия*">
         </div>
         <div class="contacts__form-group">
-            <input value="<?= $arrUpdateUser['email'] ?>" type="email" name="email" placeholder="Email*">
+            <input value="<?= $user['email'] ?>" type="email" name="email" placeholder="Email*">
         </div>
         <div class="contacts__form-group">
-            <input value="<?= $arrUpdateUser['address'] ?>" type="text" name="address" placeholder="Адрес*">
+            <input value="<?= $user['address'] ?>" type="text" name="address" placeholder="Адрес*">
         </div>
         <input  class="btn bcg-green font-white roboto" type="submit" name="web_form_submit" value="ОТПРАВИТЬ">
     </form>
 </div>
-<?php
+
+
+<!--<main>-->
+<!--    <div class="main__center">-->
+<!--        <div class="main__center">-->
+<!--            <div class="main__center-smallbox">-->
+<!--                <h1 class="h1-red">Пользователь обновлен!</h1>-->
+<!--                <input  type="hidden">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</main>-->
+<?php //endif; ?>
 
 

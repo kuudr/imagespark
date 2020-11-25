@@ -2,7 +2,11 @@
 namespace Core;
 class View
 {
+    public function render($page, $data = []) {
+        extract($data);
+        include $page;
 
+    }
     public function viewUser($user)
     {
         include 'pages/view.php';
@@ -15,6 +19,11 @@ class View
 
     public function deleteUser(){
         return include 'pages/delete.php';
+    }
+
+
+    public function updateUser($user){
+        return include 'pages/update.php';
     }
 
     public function createUser($errors){

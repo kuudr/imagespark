@@ -23,7 +23,7 @@ return [
     '/user/{id}/update' =>
         [
             'controller' => 'usersController',
-            'action' => 'updateUser',
+            'action' => 'updateAction',
         ],
     '/user/{id}/delete' =>
         [
@@ -34,5 +34,31 @@ return [
         [
             'controller' => 'usersController',
             'action' => 'userAction',
+        ],
+    //Статьи
+    '/articles' =>
+        [
+            'controller' => 'articlesController',
+            'action' => 'articlesAction',
+        ],
+    '/articles/create' =>
+        [
+            'controller' => 'articlesController',
+            'action' => 'createAction',
+        ],
+    '/article/{id}/update' =>
+        [
+            'controller' => 'articlesController',
+            'action' => 'updateAction',
+        ],
+    '/article/{id}/delete' =>
+        [
+            'controller' => 'articlesController',
+            'action' => 'deleteAction',
+        ],
+    '/article/{id}/view' =>
+        [
+            'controller' => 'articlesController',
+            'action' => 'viewAction',
         ],
 ];

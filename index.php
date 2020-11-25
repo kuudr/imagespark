@@ -30,6 +30,7 @@ if (isset($params['id'])){
                 <ul>
                     <li><a href="/" class="lnk">Главная</a></li>
                     <li><a href="/users" class="lnk">Пользователи</a></li>
+                    <li><a href="/articles" class="lnk">Статьи</a></li>
                     <li><a href="/essence" class="lnk">Сущности</a></li>
                 </ul>
                 <form>

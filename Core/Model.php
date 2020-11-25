@@ -1,17 +1,39 @@
 <?php
 namespace Core;
 use Core\Router;
-class usersModel
+
+class Model {
+
+    protected $storageDirectoryPath;
+
+    protected $attributes = [];
+
+    function getAll() {
+        if ($this->storageDirectoryPath == null) {
+            throw new \Exception('Директория для хранения данных не указана');
+        }
+        $dir = scandir($this->storageDirectoryPath);
+    }
+}
+class ArticleModel extends Model {
+    protected $storageDirectoryPath = './data/articles/';
+}
+
+class usersModel extends Model
 {
     public $userId;
     public $formInfo;
-    /**
-     * usersModel constructor.
-     */
-    public function __construct()
-    {
-        $this->formInfo = Router::getInstance()->getFormInfo();
-    }
+
+    protected $attributes = [
+        'login' => '',
+        'name' => '',
+        'surname' => '',
+        'email' => '',
+        'address' => '',
+    ];
+
+    protected $storageDirectoryPath = './data/usersrequests/';
+
 
     /**
      * @return array Получаем список всех пользователей из директории
@@ -24,6 +46,11 @@ class usersModel
             $getUser = ("data/usersrequests/$user");
             if (is_file($getUser)) {
                 $getUser = file("data/usersrequests/$user");
+                $getUsers = [];
+//                foreach ($this->attributes as $attribute) {
+//                    $getUsers[$attribute] = trim($getUser[$attribute]);
+//                }
+
                 $getUsers = [
                     'login' => trim($getUser[0]),
                     'name' => trim($getUser[1]),
@@ -60,8 +87,8 @@ class usersModel
         $viewUserFile = [
             'login' => $viewUserFile[0],
             'name' => $viewUserFile[1],
-            'email' => $viewUserFile[2],
-            'surname' => $viewUserFile[3],
+            'surname' => $viewUserFile[2],
+            'email' => $viewUserFile[3],
             'address' => $viewUserFile[4],
         ];
         return $viewUserFile;
@@ -70,12 +97,11 @@ class usersModel
     /**
      * @return array Массив ошибок
      */
-    public function validateUser()
+    public function validateUser($formInfo)
     {
-        $formInfo = Router::getInstance()->getFormInfo();
-        $valid = true;
+        $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $errors = [];
+
             if (mb_strlen($formInfo['login']) < 3){
                 $errors[] = 'Логин должен быть больше 3 символов';
             }
@@ -88,8 +114,9 @@ class usersModel
             if (mb_strlen($formInfo['address']) < 5) {
                 $errors[] = 'Адрес должен быть больше 5 символов';
             }
-            return $errors;
+
         }
+        return $errors;
     }
 
     public function showErrors(){
@@ -100,9 +127,8 @@ class usersModel
     }
 
 
-    public function createUser()
+    public function createUser($formInfo)
     {
-        $formInfo = Router::getInstance()->getFormInfo();
         if (isset($formInfo['login'],$formInfo['name'], $formInfo['surname'], $formInfo['email'], $formInfo['address'] )){
             $login = strip_tags(addslashes($formInfo['login']));
             $name = strip_tags(addslashes($formInfo['name']));
@@ -112,7 +138,7 @@ class usersModel
             $eol = PHP_EOL;
             $fileNameUsers =  $login . '.json';
             $resultUserRequest = "{$login}{$eol}{$name}{$eol}{$surname}{$eol}{$email}{$eol}{$address}";
-            return file_put_contents("data/usersrequests/$fileNameUsers",$resultUserRequest, FILE_APPEND);
+            return file_put_contents("data/usersrequests/$fileNameUsers",$resultUserRequest);
         }
     }
 
@@ -127,8 +153,23 @@ class usersModel
     }
 
 
-    protected function updateUser()
+
+    public function updateUser()
     {
+        $userFileDelete = $this->getUserId() . '.json';
+        $fileRemoveName = "data/usersrequests/$userFileDelete";
+        unlink($fileRemoveName);
+        $formInfo = Router::getInstance()->getFormInfo();
+        $loginUpdate = ($formInfo['login']);
+        $nameUpdate = ($formInfo['name']);
+        $surnameUpdate = ($formInfo['surname']);
+        $emailUpdate = ($formInfo['email']);
+        $addressUpdate = ($formInfo['address']);
+        $eol = PHP_EOL;
+        $fileNameUpdate =  $loginUpdate . '.json';
+        $userUpdate = "{$loginUpdate}{$eol}{$nameUpdate}{$eol}{$surnameUpdate}{$eol}{$emailUpdate}{$eol}{$addressUpdate}";
+        return file_put_contents("data/usersrequests/$fileNameUpdate",$userUpdate);
 
     }
+
 }

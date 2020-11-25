@@ -62,6 +62,13 @@ class Router
             return $formArray;
         }
     }
+
+    public function get($name) {
+        if (isset($_POST[$name])) {
+            return $_POST[$name];
+        }
+        return null;
+    }
     public function getRouteParams()
     {
         return $this->routeParams;
