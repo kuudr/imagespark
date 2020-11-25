@@ -19,29 +19,29 @@ class usersController
     public function usersAction(){
         $users = $this->usersModel->getUsers();
         $this->view->viewUsers($users);
+//        $this->view->render('pages/users.php', $users);
     }
 
 
     public function userAction(){
         $user = $this->usersModel->getUser();
         $this->view->viewUser($user);
+
     }
 
-
-
-    public function updateAction(){
-
+    public function updateAction()
+    {
         $userUpdate = $this->usersModel->getUser();
-        $this->view->updateUser($userUpdate);
-        $validate = $this->usersModel->validateUser();
-        if (isset($validate)){
-            if (sizeof($validate) == 0){
-                $this->usersModel->updateUser();
+        $updateData = Router::getInstance()->getFormInfo();
+        if (isset($updateData)) {
+            if (Router::getInstance()->get('update') != '1') {
+                $this->view->updateUser($userUpdate);
+            }else{
+                $this->usersModel->updateUser($updateData);
                 header("Location: /users");
             }
         }
     }
-
 
 
     public function createAction(){
@@ -50,7 +50,7 @@ class usersController
             // Обрабатываем форму
             $errors = $this->usersModel->validateUser($formData);
             if (sizeof($errors) == 0){
-                // ФОрма заполнена корректно
+                // Форма заполнена корректно
                 $this->usersModel->createUser($formData);
 
                 header("Location: /users");
@@ -69,17 +69,17 @@ class usersController
 
     public function deleteUser(){
         $id = $this->usersModel->userId;
-        $this->view->deleteUser();
         $this->usersModel->deleteUser($id);
+        $this->view->render('pages/delete.php');
     }
 
 
     public function mainAction(){
-        $this->view->viewMain();
+        $this->view->render('pages/main.php');
     }
 
 
     public function essenceAction(){
-        $this->view->viewEssence();
+        $this->view->render('pages/essence.php');
     }
 }

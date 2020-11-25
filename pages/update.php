@@ -17,6 +17,7 @@
             <input value="<?= $user['address'] ?>" type="text" name="address" placeholder="Адрес*">
         </div>
         <input  class="btn bcg-green font-white roboto" type="submit" name="web_form_submit" value="ОТПРАВИТЬ">
+        <input type="hidden" name="update" value="1">
     </form>
 </div>
 

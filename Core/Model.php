@@ -114,6 +114,7 @@ class usersModel extends Model
             if (mb_strlen($formInfo['address']) < 5) {
                 $errors[] = 'Адрес должен быть больше 5 символов';
             }
+            var_dump($formInfo);
 
         }
         return $errors;
@@ -154,17 +155,16 @@ class usersModel extends Model
 
 
 
-    public function updateUser()
+    public function updateUser($updateData)
     {
         $userFileDelete = $this->getUserId() . '.json';
         $fileRemoveName = "data/usersrequests/$userFileDelete";
         unlink($fileRemoveName);
-        $formInfo = Router::getInstance()->getFormInfo();
-        $loginUpdate = ($formInfo['login']);
-        $nameUpdate = ($formInfo['name']);
-        $surnameUpdate = ($formInfo['surname']);
-        $emailUpdate = ($formInfo['email']);
-        $addressUpdate = ($formInfo['address']);
+        $loginUpdate = ($updateData['login']);
+        $nameUpdate = ($updateData['name']);
+        $surnameUpdate = ($updateData['surname']);
+        $emailUpdate = ($updateData['email']);
+        $addressUpdate = ($updateData['address']);
         $eol = PHP_EOL;
         $fileNameUpdate =  $loginUpdate . '.json';
         $userUpdate = "{$loginUpdate}{$eol}{$nameUpdate}{$eol}{$surnameUpdate}{$eol}{$emailUpdate}{$eol}{$addressUpdate}";
