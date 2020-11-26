@@ -11,6 +11,9 @@ if (isset($errors)){
     <?= $errorStringUserAccess;?>
     <form method="POST">
         <div class="contacts__form-group">
+            <input value=""type="hidden" name="id" placeholder="id">
+        </div>
+        <div class="contacts__form-group">
             <input value="<?php if (isset($info['article_name'])) echo $info['article_name'] ?>"type="text" name="article_name" placeholder="Название статьи*">
         </div>
         <div class="contacts__form-group">

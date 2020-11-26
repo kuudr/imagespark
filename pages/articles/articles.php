@@ -5,26 +5,23 @@
     <tr class="table_line">
         <th>Название статьи</th>
         <th>Текст статьи</th>
-        <th>Дата создания</th>
         <th>Кем создано</th>
+        <th>Дата создания</th>
         <th></th>
         <th></th>
     </tr>
-<?php //foreach ($articles as $article):?>
-<!--<tr class="table_row">-->
-<!--    <td>--><?//= $article['id']?><!--</td>-->
-<!--    <td>--><?//= $article['article']?><!--</td>-->
-<!--    <td>--><?//= $article['text']?><!--</td>-->
-<!--    <td>--><?//= $article['date']?><!--</td>-->
-<!--    <td>--><?//= $article['created_by']?><!--</td>-->
-<!--    <td>-->
-<!--       <a href="/user/--><?php ////echo $userView['login']?><!--<!--/view" class="btn-users">View</a>-->
-<!--        <a href="/user/--><?php ////echo $userView['login']?><!--<!--/update"-->
-<!--           class="btn-users">Update</a>-->
-<!--        <a  onclick="return confirm('Вы уверены, что хотите удалить пользователя?')" href="/user/--><?//= $userView['login']?><!--/delete" class="btn-users">Delete</a>-->
-<!--    </td>-->
-<!--    --><?php //endforeach;?>
+<?php foreach ($articles as $article):?>
+<tr class="table_row">
+    <td><?= $article['article_name']?></td>
+    <td><?= $article['text']?></td>
+    <td><?= $article['created_by']?></td>
+    <td><?= $article['date']?></td>
+    <td>
+       <a href="/user/<?php echo $article['text']?><!--/view" class="btn-users">View</a>
+        <a href="/user/<?php echo $article['text']?><!--/update"
+           class="btn-users">Update</a>
+        <a  onclick="return confirm('Вы уверены, что хотите удалить данную статью?')" href="/user/<?= $article['text']?>/delete" class="btn-users">Delete</a>
+    </td>
+    <?php endforeach;?>
 </tr>
 </table>
-
-

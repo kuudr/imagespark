@@ -29,19 +29,20 @@ class articlesController
 
 
     }
-//    public function getAllArticles()
-//    {
-//
-//        $articles = $this->articlesModel->getAll();
-//        var_dump($articles);
-//        $this->view->viewArticles();
-//
-//    }
+    public function getAllArticles()
+    {
+
+        $articles = $this->articlesModel->getAllArticles();
+
+        $this->view->render('pages/articles/articles.php', ['articles' => $articles]);
+
+    }
 
 
     public function createAction()
     {
         if (Router::getInstance()->get('article_create') === '1') {
+            $formInfo['id'] = uniqid(4545454);
             $formInfo = Router::getInstance()->getFormInfo();
             $formInfo['date'] = date("Y-m-d H:i:s");
             $errors = $this->articlesModel->validateArticle($formInfo);

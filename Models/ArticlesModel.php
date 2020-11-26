@@ -5,11 +5,18 @@ use Core\Model;
 class articleModel extends Model
 {
     protected $storageDirectoryPath = './data/articles/';
+    protected $attributes = [
+        'id' => '',
+        'article_name' => '',
+        'text' => '',
+        'created_by' => '',
+        'date' => '',
+    ];
 
-    public function getAll()
+    public function getAllArticles()
     {
-        $dir = $this->storageDirectoryPath;
-        return scandir($dir);
+        parent::getAll();
+
     }
 
 

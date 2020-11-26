@@ -12,11 +12,16 @@ class Model {
 
 
     public function getAll() {
-        if ($this->storageDirectoryPath == null) {
-            throw new \Exception('Директория для хранения данных не указана');
+        $files = array();
+        foreach (glob($this->storageDirectoryPath . "/*.json") as $jsonFilePath) {
+            $file = json_decode(file_get_contents($jsonFilePath), true);
+            $files[] = $file;
+//            var_dump($files);
+
         }
-        $dir = scandir($this->storageDirectoryPath);
+        return $files;
     }
+
 
 
     protected function putJson($fileId, $data){
