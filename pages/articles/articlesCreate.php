@@ -1,23 +1,25 @@
 <?php
-//$errorStringUserAccess = '';
-//if (isset($errors)){
-//    foreach ($errors as $error){
-//        $errorStringUserAccess .= "<p class=\"error_form\" style =  \" color: red\">$error</p>";
-//    }
-//}
-//?>
+$errorStringUserAccess = '';
+if (isset($errors)){
+    foreach ($errors as $error){
+        $errorStringUserAccess .= "<p class=\"error_form\" style =  \" color: red\">$error</p>";
+    }
+}
+?>
 <div class="main__center">
     <h1 class="align-center">Введите данные статьи</h1>
-<!--    --><?//= $errorStringUserAccess;?>
+    <?= $errorStringUserAccess;?>
     <form method="POST">
         <div class="contacts__form-group">
-            <input value="<?php if (isset($formInfo['article'])) echo $formInfo['article'] ?>"type="text" name="article" placeholder="Название статьи*">
+            <input value="<?php if (isset($info['article_name'])) echo $info['article_name'] ?>"type="text" name="article_name" placeholder="Название статьи*">
         </div>
         <div class="contacts__form-group">
-            <input value="<?php if (isset($formInfo['text'])) echo $formInfo['text'] ?>" type="text" name="text" placeholder="Текст статьи*">
+            <input value="<?php if (isset($info['text'])) echo $info['text'] ?>" type="text" name="text" placeholder="Текст статьи*">
+        </div>
+        <div class="contacts__form-group">
+            <input value="<?php if (isset($info['created_by'])) echo $info['created_by'] ?>" type="text" name="created_by" placeholder="Кем создано*">
         </div>
         <input  class="btn bcg-green font-white roboto" type="submit" name="web_form_submit" value="ОТПРАВИТЬ">
-        <input type="hidden" name="article" value="1">
+        <input type="hidden" name="article_create" value="1">
     </form>
 </div>
-

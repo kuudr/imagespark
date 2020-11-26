@@ -24,7 +24,6 @@ class articlesController
     public function articlesAction()
     {
         $articles = $this->articlesModel->getAll();
-        var_dump($articles);
         $this->view->viewArticles($articles);
 
 
@@ -42,18 +41,18 @@ class articlesController
 
     public function createAction()
     {
-        if (Router::getInstance()->get('article') !== '1') {
-            $formData = Router::getInstance()->getFormInfo();
-
-            $errors = $this->articlesModel->validateArticle($formData);
+        if (Router::getInstance()->get('article_create') === '1') {
+            $formInfo = Router::getInstance()->getFormInfo();
+            $formInfo['date'] = date("Y-m-d H:i:s");
+            $errors = $this->articlesModel->validateArticle($formInfo);
             if (sizeof($errors) == 0){
-                $this->articlesModel->createArticle($formData);
-//                header("Location: /articles");
+                $this->articlesModel->createArticle($formInfo);
+                header("Location: /articles");
             } else {
-                $this->view->createArticle($errors);
+                $this->view->render('pages/articles/articlesCreate.php', ['errors' => $errors], ['info' => $formInfo]);
             }
         } else {
-            $this->view->createArticle($errors);
+            $this->view->render('pages/articles/articlesCreate.php', ['errors' => []]);
         }
 
     }

@@ -6,7 +6,10 @@ class Model {
 
     protected $storageDirectoryPath;
 
-    protected $attributes = [];
+    protected $attributes = [
+
+    ];
+
 
     public function getAll() {
         if ($this->storageDirectoryPath == null) {
@@ -17,13 +20,16 @@ class Model {
 
 
     protected function putJson($fileId, $data){
-        return file_put_contents($this->storageDirectoryPath . $fileId . '.json' , json_encode($data, JSON_PRETTY_PRINT));
+
+        return file_put_contents($this->storageDirectoryPath . $fileId . '.json'  , json_encode($data, JSON_PRETTY_PRINT));
     }
 
-    protected function create($info)
+    protected function create($data)
     {
 
-
+        $id = $this->attributes['id'] = uniqid();
+        $this->attributes = $data;
+        $this->putJson($id, $data);
 
     }
 

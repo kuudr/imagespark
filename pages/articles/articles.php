@@ -18,8 +18,8 @@
 <!--    <td>--><?//= $article['date']?><!--</td>-->
 <!--    <td>--><?//= $article['created_by']?><!--</td>-->
 <!--    <td>-->
-<!--<!--        <a href="/user/-->--><?php ////echo $userView['login']?><!--<!--/view" class="btn-users">View</a>-->-->
-<!--<!--        <a href="/user/-->--><?php ////echo $userView['login']?><!--<!--/update"-->-->
+<!--       <a href="/user/--><?php ////echo $userView['login']?><!--<!--/view" class="btn-users">View</a>-->
+<!--        <a href="/user/--><?php ////echo $userView['login']?><!--<!--/update"-->
 <!--           class="btn-users">Update</a>-->
 <!--        <a  onclick="return confirm('Вы уверены, что хотите удалить пользователя?')" href="/user/--><?//= $userView['login']?><!--/delete" class="btn-users">Delete</a>-->
 <!--    </td>-->

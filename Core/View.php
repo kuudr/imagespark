@@ -2,11 +2,14 @@
 namespace Core;
 class View
 {
-    public function render($page, $data = []) {
+    public function render($page, $data = [], $formInfo=[]) {
         extract($data);
+        extract($formInfo);
         include $page;
 
     }
+
+
 
     /**
      * Пользователи

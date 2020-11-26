@@ -49,8 +49,6 @@ class Router
                 include 'Controllers/' . $file['controller'] . '.php';
                 $controllerName = 'Controllers\\' . $file['controller'];
                 $controller = new $controllerName();
-//                var_dump($file['controller']);
-//                var_dump($file['action']);
                 $controller->{$file['action']}();
                 return $param;
             }
