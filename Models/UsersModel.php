@@ -47,14 +47,6 @@ class usersModel extends Model
 
     }
 
-    /**
-     * @return mixed|string
-     */
-    public function getUserId(){
-        $parseUri = explode('/',$_SERVER['REQUEST_URI']);
-        $userId = $parseUri[2];
-        return $userId;
-    }
 
     /**
      * @return array Массив одного пользователя

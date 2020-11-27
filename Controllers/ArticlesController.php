@@ -15,6 +15,7 @@ class articlesController
     public function __construct()
     {
         $this->articlesModel = new articleModel();
+
         $this->view = new View();
 
 
@@ -24,15 +25,16 @@ class articlesController
     public function articlesAction()
     {
         $articles = $this->articlesModel->getAll();
+
         $this->view->viewArticles($articles);
 
 
 
     }
-    public function getAllArticles()
+    public function getAll()
     {
 
-        $articles = $this->articlesModel->getAllArticles();
+        $articles = $this->articlesModel->getAll();
 
         $this->view->render('pages/articles/articles.php', ['articles' => $articles]);
 
@@ -42,12 +44,11 @@ class articlesController
     public function createAction()
     {
         if (Router::getInstance()->get('article_create') === '1') {
-            $formInfo['id'] = uniqid(4545454);
             $formInfo = Router::getInstance()->getFormInfo();
             $formInfo['date'] = date("Y-m-d H:i:s");
-            $errors = $this->articlesModel->validateArticle($formInfo);
+            $errors = $this->articlesModel->validate($formInfo);
             if (sizeof($errors) == 0){
-                $this->articlesModel->createArticle($formInfo);
+                $this->articlesModel->create($formInfo);
                 header("Location: /articles");
             } else {
                 $this->view->render('pages/articles/articlesCreate.php', ['errors' => $errors], ['info' => $formInfo]);
@@ -60,16 +61,39 @@ class articlesController
 
     public function updateAction()
     {
+        $fileUpdate = $this->articlesModel->get();
+
+        $updateData = Router::getInstance()->getFormInfo();
+
+        if (isset($updateData)){
+
+            if (Router::getInstance()->get('update_article') != '1'){
+
+                $this->view->updateArticle($fileUpdate);
+
+            }else{
+                $this->articlesModel->update($updateData);
+                header("Location: /articles");
+            }
+        }
 
     }
 
     public function deleteAction()
     {
 
+        $article = $this->articlesModel->delete();
+
+        $this->view->deleteArticle($article);
+
     }
 
     public function viewAction()
     {
+
+        $article = $this->articlesModel->get();
+
+        $this->view->render('pages/articles/articleView.php', ['article' => $article]);
 
     }
 

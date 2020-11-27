@@ -17,10 +17,10 @@
     <td><?= $article['created_by']?></td>
     <td><?= $article['date']?></td>
     <td>
-       <a href="/user/<?php echo $article['text']?><!--/view" class="btn-users">View</a>
-        <a href="/user/<?php echo $article['text']?><!--/update"
+       <a href="/article/<?php echo $article['id']?>/view/" class="btn-users">View</a>
+        <a href="/article/<?php echo $article['id']?>/update/"
            class="btn-users">Update</a>
-        <a  onclick="return confirm('Вы уверены, что хотите удалить данную статью?')" href="/user/<?= $article['text']?>/delete" class="btn-users">Delete</a>
+        <a  onclick="return confirm('Вы уверены, что хотите удалить данную статью?')" href="/article/<?= $article['id']?>/delete/" class="btn-users">Delete</a>
     </td>
     <?php endforeach;?>
 </tr>

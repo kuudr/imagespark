@@ -5,22 +5,22 @@ use Core\Model;
 class articleModel extends Model
 {
     protected $storageDirectoryPath = './data/articles/';
-    protected $attributes = [
-        'id' => '',
-        'article_name' => '',
-        'text' => '',
-        'created_by' => '',
-        'date' => '',
-    ];
 
-    public function getAllArticles()
+
+    protected function getAllArticles()
     {
         parent::getAll();
 
     }
 
 
-    public function validateArticle($formInfo)
+    protected function getArticle(){
+
+        parent::get();
+    }
+
+
+    public function validate($formInfo)
     {
         $errors = [];
         if (mb_strlen($formInfo['article_name']) < 5){
@@ -38,9 +38,21 @@ class articleModel extends Model
     }
 
 
-    public function createArticle($formInfo)
+    public function create($formInfo)
     {
         parent::create($formInfo);
     }
 
+
+    public function delete(){
+
+        parent:: delete();
+
+    }
+
+
+    public function update($data){
+
+        parent::update($data);
+    }
 }

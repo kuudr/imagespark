@@ -46,17 +46,17 @@ return [
             'controller' => 'articlesController',
             'action' => 'createAction',
         ],
-    '/article/{id}/update' =>
+    '/article/{id}/update/' =>
         [
             'controller' => 'articlesController',
             'action' => 'updateAction',
         ],
-    '/article/{id}/delete' =>
+    '/article/{id}/delete/' =>
         [
             'controller' => 'articlesController',
             'action' => 'deleteAction',
         ],
-    '/article/{id}/view' =>
+    '/article/{id}/view/' =>
         [
             'controller' => 'articlesController',
             'action' => 'viewAction',
