@@ -15,7 +15,7 @@
     <td><?= $article['article_name']?></td>
     <td><?= $article['text']?></td>
     <td><?= $article['created_by']?></td>
-    <td><?= $article['date']?></td>
+    <td><?= $article['created_at']?></td>
     <td>
        <a href="/article/<?php echo $article['id']?>/view/" class="btn-users">View</a>
         <a href="/article/<?php echo $article['id']?>/update/"

@@ -12,31 +12,30 @@ class articlesController
 
 
 
+
     public function __construct()
     {
         $this->articlesModel = new articleModel();
 
         $this->view = new View();
-
-
     }
 
 
-    public function articlesAction()
-    {
-        $articles = $this->articlesModel->getAll();
-
-        $this->view->viewArticles($articles);
+    public function getAction(){
 
 
-
-    }
-    public function getAll()
-    {
-
-        $articles = $this->articlesModel->getAll();
+        $articles = $this->articlesModel->getFromDB();
 
         $this->view->render('pages/articles/articles.php', ['articles' => $articles]);
+
+    }
+
+    public function viewAction()
+    {
+
+        $article = $this->articlesModel->getArticle();
+
+        $this->view->render('pages/articles/articleView.php', ['article' => $article]);
 
     }
 
@@ -44,11 +43,37 @@ class articlesController
     public function createAction()
     {
         if (Router::getInstance()->get('article_create') === '1') {
+
             $formInfo = Router::getInstance()->getFormInfo();
-            $formInfo['date'] = date("Y-m-d H:i:s");
+
+            $formInfo['created_at'] = date("Y-m-d H:i");
+            $insertIntoDB = [
+                'article_name' => '',
+                'text' => '',
+                'created_by' => '',
+                'created_at' => '',
+            ];
+
+            $insertIntoDB['article_name'] .= $formInfo['article_name'];
+            $insertIntoDB['text'] .= $formInfo['text'];
+            $insertIntoDB['created_by'] .= $formInfo['created_by'];
+            $insertIntoDB['created_at'] .= $formInfo['created_at'];
+
+            $insertIntoDB = array_map(function ($value) {
+
+                if (is_int($value)) {
+                    return $value;
+                }
+                return "'" . $value . "'";
+            }, $insertIntoDB);
+
+
+
+
             $errors = $this->articlesModel->validate($formInfo);
             if (sizeof($errors) == 0){
-                $this->articlesModel->create($formInfo);
+
+                $this->articlesModel->create($insertIntoDB);
                 header("Location: /articles");
             } else {
                 $this->view->render('pages/articles/articlesCreate.php', ['errors' => $errors], ['info' => $formInfo]);
@@ -61,7 +86,7 @@ class articlesController
 
     public function updateAction()
     {
-        $fileUpdate = $this->articlesModel->get();
+        $recordUpdate = $this->articlesModel->getArticle();
 
         $updateData = Router::getInstance()->getFormInfo();
 
@@ -69,7 +94,7 @@ class articlesController
 
             if (Router::getInstance()->get('update_article') != '1'){
 
-                $this->view->updateArticle($fileUpdate);
+                $this->view->updateArticle($recordUpdate);
 
             }else{
                 $this->articlesModel->update($updateData);
@@ -88,13 +113,8 @@ class articlesController
 
     }
 
-    public function viewAction()
-    {
 
-        $article = $this->articlesModel->get();
 
-        $this->view->render('pages/articles/articleView.php', ['article' => $article]);
 
-    }
 
 }

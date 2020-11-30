@@ -2,9 +2,10 @@
 namespace Core;
 class View
 {
-    public function render($page, $data = [], $formInfo=[], $article = []) {
+    public function render($page, $articles = [], $article = [], $data = [], $formInfo=[]) {
         extract($data);
         extract($article);
+        extract($articles);
         extract($formInfo);
         include $page;
 

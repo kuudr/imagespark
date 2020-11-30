@@ -14,7 +14,7 @@
     </tr>
     <tr class="table_row">
         <th>Дата создания:</th>
-        <td><?= $article['date']?></td>
+        <td><?= $article['created_at']?></td>
     </tr>
     </tbody>
 </table>

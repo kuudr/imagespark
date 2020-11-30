@@ -1,104 +1,128 @@
 <?php
 namespace Core;
-
+use data\dbConn;
+use PDO;
 abstract class Model {
 
+    protected $record;
+
     protected $storageDirectoryPath;
+    protected $table;
+    protected $valuesToRender;
+    protected $columnsToInsert;
+    protected $attributes = [];
+    protected $columnsToUpdate = [];
+
+    public function __construct()
+    {
+        $this->record = $this->getId();
+    }
 
 
-    protected $attributes = [
+    protected static function setDB()
+    {
+        static $db = null;
 
-    ];
-
-
-    public function getAll() {
-        $files = array();
-        foreach (glob($this->storageDirectoryPath . "/*.json") as $jsonFilePath) {
-            $file = json_decode(file_get_contents($jsonFilePath), true);
-            $files[] = $file;
-
+        if ($db === null) {
+            $dsn = 'mysql:host=' . dbConn::HOST . ';dbname=' . dbConn::DB_NAME . ';charset=utf8';
+            $db = new PDO($dsn, dbConn::DB_USER, dbConn::DB_PASSWORD);
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE , PDO::FETCH_ASSOC);
         }
-        return $files;
+
+        return $db;
     }
 
 
-
-    protected function putJson($fileId, $data){
-
-        return file_put_contents($this->storageDirectoryPath . $fileId . '.json'  , json_encode($data, JSON_PRETTY_PRINT));
-    }
-
-    protected function create($data)
+    protected function getFromDB()
     {
 
-        $id = $this->attributes['id'] = uniqid();
+        $table = $this->table;
 
-        $data['id'] = $id;
+        $db = self::setDB();
 
-        $this->attributes = $data;
+        $getFromDB = $db->query("SELECT * FROM $table");
 
-        $this->putJson($id, $data);
-
-    }
-
-    protected function update($data)
-    {
-        $file = $this->getUserId() . '.json';
-
-        $fileUpdate = $this->storageDirectoryPath . $file;
-
-        if (file_put_contents($fileUpdate, json_encode($data))){
-
-            return $data['id'];
-        }
-        return false;
+        return $getFromDB->fetchAll(PDO::FETCH_ASSOC);
 
     }
 
 
-
-
-    public function get()
+    protected function get()
     {
+        $table = $this->table;
 
-        $file = $this->getUserId() . '.json';
+        $valuesToRender = $this->valuesToRender;
 
-        $path = $this->storageDirectoryPath;
+        $db = self::setDB();
 
-        $resultView = [(json_decode(file_get_contents($path . $file) , true))];
+        $query = $db->query("SELECT $valuesToRender FROM $table WHERE id = $this->record");
 
-        foreach ($resultView as $file){
-            return $file;
+        foreach ($query as $render){
+            return $render;
         }
 
     }
 
+    protected function putDB($data)
+    {
+
+        $db = self::setDB();
+
+        $columnsToInsert = $this->columnsToInsert;
+
+        $values = implode(',', $data);
+
+        $query = "INSERT INTO $this->table ($columnsToInsert) VALUES ($values)";
+
+        $db->query($query);
+
+    }
 
 
-    public function getUserId(){
+    protected function delete()
+    {
 
+        $table = $this->table;
+
+        $db = self::setDB();
+
+        $query = ("DELETE FROM $table WHERE id = $this->record");
+
+        $db->query($query);
+
+    }
+
+
+    public function update($data)
+    {
+        $table = $this->table;
+
+        $id = $this->record;
+
+        $db = self::setDB();
+
+        var_dump($data);
+
+        $query = "UPDATE" . $table .
+            "SET article_name = :article_name, text = :text
+             WHERE id = :id";
+
+        $db->query($query, [
+            'id' => $id,
+            'text' => $data['text'],
+            'article_name' => $data['article_name']
+        ]);
+    }
+
+
+
+
+    public function getId(){
         $parseUri = explode('/',$_SERVER['REQUEST_URI']);
-
-        $userId = $parseUri[2];
-
-        return $userId;
-    }
-
-
-
-
-    public function delete()
-    {
-
-        $file = $this->getUserId() . '.json';
-
-        $fileRemove = $this->storageDirectoryPath . $file;
-
-        if (file_exists($fileRemove)){
-
-            unlink($fileRemove);
+        if (isset($parseUri[2])){
+            return $parseUri[2];
         }
-
     }
 
 }

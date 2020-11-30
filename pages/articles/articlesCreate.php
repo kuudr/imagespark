@@ -6,6 +6,7 @@ if (isset($errors)){
     }
 }
 ?>
+
 <div class="main__center">
     <h1 class="align-center">Введите данные статьи</h1>
     <?= $errorStringUserAccess;?>

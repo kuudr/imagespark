@@ -6,18 +6,31 @@ class articleModel extends Model
 {
     protected $storageDirectoryPath = './data/articles/';
 
+    public $table = 'imagespark.articles';
 
-    protected function getAllArticles()
+    public $columnsToInsert = 'article_name, text, created_by, created_at';
+
+    public $columnsToUpdate = [
+        'article_name' => '',
+        'text' => '',
+    ];
+
+    public $valuesToRender = "article_name, text, created_by, created_at";
+
+
+
+    public function getFromDB()
     {
-        parent::getAll();
+        return parent::getFromDB();
 
     }
 
-
-    protected function getArticle(){
-
-        parent::get();
+    public function getArticle()
+    {
+        return parent::get();
     }
+
+
 
 
     public function validate($formInfo)
@@ -40,7 +53,7 @@ class articleModel extends Model
 
     public function create($formInfo)
     {
-        parent::create($formInfo);
+        parent::putDB($formInfo);
     }
 
 
@@ -53,6 +66,8 @@ class articleModel extends Model
 
     public function update($data){
 
-        parent::update($data);
+        return parent::update($data);
+
     }
+
 }
