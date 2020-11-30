@@ -19,10 +19,10 @@
     <td><?= $userView['email']?></td>
     <td><?= $userView['address']?></td>
     <td>
-        <a href="/user/<?php echo $userView['login']?>/view" class="btn-users">View</a>
-        <a href="/user/<?php echo $userView['login']?>/update"
+        <a href="/user/<?php echo $userView['id']?>/view" class="btn-users">View</a>
+        <a href="/user/<?php echo $userView['id']?>/update"
            class="btn-users">Update</a>
-        <a  onclick="return confirm('Вы уверены, что хотите удалить пользователя?')" href="/user/<?= $userView['login']?>/delete" class="btn-users">Delete</a>
+        <a  onclick="return confirm('Вы уверены, что хотите удалить пользователя?')" href="/user/<?= $userView['id']?>/delete" class="btn-users">Delete</a>
     </td>
     <?php endforeach;?>
 </tr>

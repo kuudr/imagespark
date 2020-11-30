@@ -2,51 +2,14 @@
 namespace Core;
 class View
 {
-    public function render($page, $articles = [], $article = [], $data = [], $formInfo=[]) {
-        extract($data);
+    public function render($page,$user = [], $articles = [], $article = [], $data = [], $formInfo=[], $users = []) {
         extract($article);
+        extract($users);
+        extract($user);
+        extract($data);
         extract($articles);
         extract($formInfo);
         include $page;
 
     }
-
-    /**
-     * Пользователи
-     */
-    public function viewUser($user)
-    {
-        include 'pages/view.php';
-    }
-
-
-    public function viewUsers($users){
-        return include 'pages/users.php';
-    }
-
-
-    public function updateUser($user){
-        return include 'pages/update.php';
-    }
-
-
-    /**
-     * Статьи
-     */
-
-    public function viewArticles($articles){
-        return include 'pages/articles/articles.php';
-    }
-
-    public function deleteArticle($article){
-        return include 'pages/articles/articleDelete.php';
-    }
-
-    public function updateArticle($article){
-        return include 'pages/articles/articleUpdate.php';
-    }
-
-
-
-
 }

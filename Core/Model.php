@@ -5,13 +5,9 @@ use PDO;
 abstract class Model {
 
     protected $record;
-
-    protected $storageDirectoryPath;
     protected $table;
-    protected $valuesToRender;
-    protected $columnsToInsert;
+    protected $columns;
     protected $attributes = [];
-    protected $columnsToUpdate = [];
 
     public function __construct()
     {
@@ -52,11 +48,11 @@ abstract class Model {
     {
         $table = $this->table;
 
-        $valuesToRender = $this->valuesToRender;
+        $columns = $this->columns;
 
         $db = self::setDB();
 
-        $query = $db->query("SELECT $valuesToRender FROM $table WHERE id = $this->record");
+        $query = $db->query("SELECT $columns FROM $table WHERE id = $this->record");
 
         foreach ($query as $render){
             return $render;
@@ -69,11 +65,11 @@ abstract class Model {
 
         $db = self::setDB();
 
-        $columnsToInsert = $this->columnsToInsert;
+        $columns = $this->columns;
 
         $values = implode(',', $data);
 
-        $query = "INSERT INTO $this->table ($columnsToInsert) VALUES ($values)";
+        $query = "INSERT INTO $this->table ($columns) VALUES ($values)";
 
         $db->query($query);
 
@@ -89,7 +85,7 @@ abstract class Model {
 
         $query = ("DELETE FROM $table WHERE id = $this->record");
 
-        $db->query($query);
+        return $db->query($query);
 
     }
 

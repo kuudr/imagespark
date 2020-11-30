@@ -10,9 +10,6 @@ class articlesController
     protected $articlesModel;
     protected $view;
 
-
-
-
     public function __construct()
     {
         $this->articlesModel = new articleModel();
@@ -26,7 +23,7 @@ class articlesController
 
         $articles = $this->articlesModel->getFromDB();
 
-        $this->view->render('pages/articles/articles.php', ['articles' => $articles]);
+        $this->view->render('Views/articles/articles.php', ['articles' => $articles]);
 
     }
 
@@ -35,7 +32,7 @@ class articlesController
 
         $article = $this->articlesModel->getArticle();
 
-        $this->view->render('pages/articles/articleView.php', ['article' => $article]);
+        $this->view->render('Views/articles/articleView.php', ['article' => $article]);
 
     }
 
@@ -76,10 +73,10 @@ class articlesController
                 $this->articlesModel->create($insertIntoDB);
                 header("Location: /articles");
             } else {
-                $this->view->render('pages/articles/articlesCreate.php', ['errors' => $errors], ['info' => $formInfo]);
+                $this->view->render('Views/articles/articlesCreate.php', ['errors' => $errors], ['info' => $formInfo]);
             }
         } else {
-            $this->view->render('pages/articles/articlesCreate.php', ['errors' => []]);
+            $this->view->render('Views/articles/articlesCreate.php', ['errors' => []]);
         }
 
     }
@@ -94,7 +91,8 @@ class articlesController
 
             if (Router::getInstance()->get('update_article') != '1'){
 
-                $this->view->updateArticle($recordUpdate);
+                $this->view->render('Views/articles/articleUpdate.php', ['article' => $recordUpdate]);
+
 
             }else{
                 $this->articlesModel->update($updateData);
@@ -109,7 +107,7 @@ class articlesController
 
         $article = $this->articlesModel->delete();
 
-        $this->view->deleteArticle($article);
+        $this->view->render('Views/articles/articleDelete.php', ['article' => $article]);
 
     }
 

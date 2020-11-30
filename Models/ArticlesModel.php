@@ -4,20 +4,15 @@ use Core\Model;
 
 class articleModel extends Model
 {
-    protected $storageDirectoryPath = './data/articles/';
 
     public $table = 'imagespark.articles';
 
-    public $columnsToInsert = 'article_name, text, created_by, created_at';
+    public $columns = 'article_name, text, created_by, created_at';
 
     public $columnsToUpdate = [
         'article_name' => '',
         'text' => '',
     ];
-
-    public $valuesToRender = "article_name, text, created_by, created_at";
-
-
 
     public function getFromDB()
     {

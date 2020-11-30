@@ -10,10 +10,10 @@ return [
             'controller' => 'usersController',
             'action' => 'essenceAction',
         ],
-    '/users' =>
+    '/users/' =>
         [
             'controller' => 'usersController',
-            'action' => 'usersAction',
+            'action' => 'getAction',
         ],
     '/users/create' =>
         [
@@ -28,7 +28,7 @@ return [
     '/user/{id}/delete' =>
         [
             'controller' => 'usersController',
-            'action' => 'deleteUser',
+            'action' => 'deleteAction',
         ],
     '/user/{id}/view' =>
         [

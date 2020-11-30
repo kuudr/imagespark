@@ -11,19 +11,19 @@ if (isset($errors)){
     <?= $errorStringUserAccess;?>
     <form method="POST">
         <div class="contacts__form-group">
-            <input value="<?php if (isset($formInfo['login'])) echo $formInfo['login'] ?>" type="text" name="login" placeholder="login*">
+            <input value="<?php if (isset($info['login'])) echo $info['login'] ?>" type="text" name="login" placeholder="login*">
         </div>
         <div class="contacts__form-group">
-            <input value="<?php if (isset($formInfo['name'])) echo $formInfo['name'] ?>"type="text" name="name" placeholder="Имя*">
+            <input value="<?php if (isset($info['name'])) echo $info['name'] ?>"type="text" name="name" placeholder="Имя*">
         </div>
         <div class="contacts__form-group">
-            <input value="<?php if (isset($formInfo['surname'])) echo $formInfo['surname'] ?>" type="text" name="surname" placeholder="Фамилия*">
+            <input value="<?php if (isset($info['surname'])) echo $info['surname'] ?>" type="text" name="surname" placeholder="Фамилия*">
         </div>
         <div class="contacts__form-group">
-            <input value="<?php if (isset($formInfo['email'])) echo $formInfo['email'] ?>" type="email" name="email" placeholder="Email*">
+            <input value="<?php if (isset($info['email'])) echo $info['email'] ?>" type="email" name="email" placeholder="Email*">
         </div>
         <div class="contacts__form-group">
-            <input value="<?php if (isset($formInfo['address'])) echo $formInfo['address'] ?>" type="text" name="address" placeholder="Адрес*">
+            <input value="<?php if (isset($info['address'])) echo $info['address'] ?>" type="text" name="address" placeholder="Адрес*">
         </div>
         <input  class="btn bcg-green font-white roboto" type="submit" name="web_form_submit" value="ОТПРАВИТЬ">
         <input type="hidden" name="submit" value="1">
