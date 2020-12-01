@@ -79,20 +79,26 @@ class usersController
 
     }
 
-//    public function updateAction()
-//    {
-//        $userUpdate = $this->usersModel->getUser();
-//        $updateData = Router::getInstance()->getFormInfo();
-//        if (isset($updateData)) {
-//            if (Router::getInstance()->get('update') != '1') {
-//                $this->view->updateUser($userUpdate);
-//            }else{
-//                $this->usersModel->updateUser($updateData);
-//                header("Location: /users");
-//            }
-//        }
-//    }
+    public function updateAction()
+    {
+        $recordUpdate = $this->usersModel->getUser();
 
+        $updateData = Router::getInstance()->getFormInfo();
+
+        if (isset($updateData)){
+
+            if (Router::getInstance()->get('update') != '1'){
+
+                $this->view->render('Views/users/userUpdate.php', ['user' => $recordUpdate]);
+
+
+            }else{
+                $this->usersModel->updateUser($updateData);
+                header("Location: /users");
+            }
+        }
+
+    }
 
 
 

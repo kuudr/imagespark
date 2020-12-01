@@ -61,7 +61,7 @@ class articleModel extends Model
 
     public function update($data){
 
-        return parent::update($data);
+        parent::updateArticle($data);
 
     }
 

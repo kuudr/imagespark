@@ -65,8 +65,6 @@ class articlesController
             }, $insertIntoDB);
 
 
-
-
             $errors = $this->articlesModel->validate($formInfo);
             if (sizeof($errors) == 0){
 
@@ -83,7 +81,7 @@ class articlesController
 
     public function updateAction()
     {
-        $recordUpdate = $this->articlesModel->getArticle();
+
 
         $updateData = Router::getInstance()->getFormInfo();
 
@@ -110,9 +108,5 @@ class articlesController
         $this->view->render('Views/articles/articleDelete.php', ['article' => $article]);
 
     }
-
-
-
-
 
 }

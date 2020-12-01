@@ -54,7 +54,7 @@ class usersModel extends Model
 
     public function update($data){
 
-        return parent::update($data);
+        parent::updateUser($data);
 
     }
 }

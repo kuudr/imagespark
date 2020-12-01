@@ -7,7 +7,6 @@ abstract class Model {
     protected $record;
     protected $table;
     protected $columns;
-    protected $attributes = [];
 
     public function __construct()
     {
@@ -90,25 +89,52 @@ abstract class Model {
     }
 
 
-    public function update($data)
+    public function updateArticle($data)
     {
+
         $table = $this->table;
 
         $id = $this->record;
 
         $db = self::setDB();
 
-        var_dump($data);
-
-        $query = "UPDATE" . $table .
-            "SET article_name = :article_name, text = :text
-             WHERE id = :id";
-
-        $db->query($query, [
+        $updateArr = [
             'id' => $id,
             'text' => $data['text'],
             'article_name' => $data['article_name']
-        ]);
+
+        ];
+
+        $sql = "UPDATE $table SET article_name=:article_name, text=:text WHERE id=:id";
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute($updateArr);
+    }
+
+
+    public function updateUser($data)
+    {
+
+        $table = $this->table;
+
+        $id = $this->record;
+
+        $db = self::setDB();
+
+        $updateArr = [
+            'id' => $id,
+            'login' => $data['login'],
+            'name' => $data['name'],
+            'surname' => $data['surname'],
+            'email' => $data['email'],
+            'address' => $data['address'],
+
+        ];
+
+        $sql = "UPDATE $table SET login=:login, name=:name, surname=:surname, email=:email, address=:address WHERE id=:id";
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute($updateArr);
     }
 
 
