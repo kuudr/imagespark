@@ -11,7 +11,7 @@ class usersController
 
     public function __construct()
     {
-        $this->usersModel = new usersModel();
+        $this->usersModel = new usersModel(Router::getInstance()->getId());
         $this->view = new View();
     }
 
@@ -93,7 +93,7 @@ class usersController
 
 
             }else{
-                $this->usersModel->updateUser($updateData);
+                $this->usersModel->update($updateData);
                 header("Location: /users");
             }
         }

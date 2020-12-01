@@ -75,6 +75,14 @@ class Router
     {
         return $this->routeParams;
     }
+
+    public function getId(){
+        $parseUri = explode('/',$_SERVER['REQUEST_URI']);
+        if (isset($parseUri[2])){
+            return $parseUri[2];
+        }
+    }
+
 }
 
 

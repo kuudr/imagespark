@@ -4,13 +4,15 @@ use data\dbConn;
 use PDO;
 abstract class Model {
 
+
     protected $record;
     protected $table;
     protected $columns;
 
-    public function __construct()
+    public function __construct($record)
     {
-        $this->record = $this->getId();
+        $this->record = $record;
+
     }
 
 
@@ -70,7 +72,7 @@ abstract class Model {
 
     public function delete()
     {
-        
+
         $db = self::setDB();
 
         $query = ("DELETE FROM $this->table WHERE id = $this->record");
@@ -79,14 +81,6 @@ abstract class Model {
 
     }
 
-
-
-    public function getId(){
-        $parseUri = explode('/',$_SERVER['REQUEST_URI']);
-        if (isset($parseUri[2])){
-            return $parseUri[2];
-        }
-    }
 
 }
 

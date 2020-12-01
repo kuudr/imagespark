@@ -12,7 +12,7 @@ class articlesController
 
     public function __construct()
     {
-        $this->articlesModel = new articleModel();
+        $this->articlesModel = new articleModel(Router::getInstance()->getId());
 
         $this->view = new View();
     }
@@ -93,7 +93,7 @@ class articlesController
 
 
             }else{
-                $this->articlesModel->updateArticle($updateData);
+                $this->articlesModel->update($updateData);
                 header("Location: /articles");
             }
         }
@@ -102,6 +102,7 @@ class articlesController
 
     public function deleteAction()
     {
+
         $article = $this->articlesModel->delete();
 
         $this->view->render('Views/articles/articleDelete.php', ['article' => $article]);

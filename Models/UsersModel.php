@@ -27,7 +27,7 @@ class usersModel extends Model
         return $errors;
     }
 
-    public function updateUser($data)
+    public function update($data)
     {
 
         $table = $this->table;

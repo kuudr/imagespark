@@ -26,7 +26,7 @@ class articleModel extends Model
         return $errors;
     }
 
-    public function updateArticle($data)
+    public function update($data)
     {
 
         $table = $this->table;
