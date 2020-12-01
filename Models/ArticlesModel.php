@@ -9,25 +9,6 @@ class articleModel extends Model
 
     public $columns = 'article_name, text, created_by, created_at';
 
-    public $columnsToUpdate = [
-        'article_name' => '',
-        'text' => '',
-    ];
-
-    public function getFromDB()
-    {
-        return parent::getFromDB();
-
-    }
-
-    public function getArticle()
-    {
-        return parent::get();
-    }
-
-
-
-
     public function validate($formInfo)
     {
         $errors = [];
@@ -45,24 +26,25 @@ class articleModel extends Model
         return $errors;
     }
 
-
-    public function create($formInfo)
+    public function updateArticle($data)
     {
-        parent::putDB($formInfo);
+
+        $table = $this->table;
+
+        $id = $this->record;
+
+        $db = self::setDB();
+
+        $updateArr = [
+            'id' => $id,
+            'text' => $data['text'],
+            'article_name' => $data['article_name']
+
+        ];
+
+        $sql = "UPDATE $table SET article_name=:article_name, text=:text WHERE id=:id";
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute($updateArr);
     }
-
-
-    public function delete(){
-
-        parent:: delete();
-
-    }
-
-
-    public function update($data){
-
-        parent::updateArticle($data);
-
-    }
-
 }

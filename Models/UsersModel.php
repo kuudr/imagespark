@@ -8,18 +8,6 @@ class usersModel extends Model
 
     protected $columns = 'login, name, surname, email, address';
 
-    public function get()
-    {
-        return parent::getFromDB();
-
-    }
-
-    public function getUser()
-    {
-        return parent::get();
-    }
-
-
     public function validate($formInfo)
     {
         $errors = [];
@@ -39,22 +27,29 @@ class usersModel extends Model
         return $errors;
     }
 
-
-    public function create($formInfo)
+    public function updateUser($data)
     {
-        parent::putDB($formInfo);
+
+        $table = $this->table;
+
+        $id = $this->record;
+
+        $db = self::setDB();
+
+        $updateArr = [
+            'id' => $id,
+            'login' => $data['login'],
+            'name' => $data['name'],
+            'surname' => $data['surname'],
+            'email' => $data['email'],
+            'address' => $data['address'],
+
+        ];
+
+        $sql = "UPDATE $table SET login=:login, name=:name, surname=:surname, email=:email, address=:address WHERE id=:id";
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute($updateArr);
     }
 
-    public function delete(){
-
-        parent:: delete();
-
-    }
-
-
-    public function update($data){
-
-        parent::updateUser($data);
-
-    }
 }

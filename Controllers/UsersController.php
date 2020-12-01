@@ -17,7 +17,7 @@ class usersController
 
     public function getAction(){
 
-        $users = $this->usersModel->get();
+        $users = $this->usersModel->getFromDB();
 
         $this->view->render('Views/users/users.php', ['users' => $users]);
 
@@ -26,7 +26,7 @@ class usersController
 
     public function userAction()
     {
-        $user = $this->usersModel->getUser();
+        $user = $this->usersModel->get();
 
         $this->view->render('Views/users/userView.php', ['user' => $user]);
 
@@ -64,7 +64,7 @@ class usersController
             $errors = $this->usersModel->validate($formInfo);
             if (sizeof($errors) == 0){
                 // Форма заполнена корректно
-                $this->usersModel->create($insertIntoDB);
+                $this->usersModel->putDB($insertIntoDB);
 
                 header("Location: /users");
             } else {
@@ -81,7 +81,7 @@ class usersController
 
     public function updateAction()
     {
-        $recordUpdate = $this->usersModel->getUser();
+        $recordUpdate = $this->usersModel->get();
 
         $updateData = Router::getInstance()->getFormInfo();
 
@@ -100,9 +100,6 @@ class usersController
 
     }
 
-
-
-
     public function deleteAction()
     {
 
@@ -112,7 +109,6 @@ class usersController
 
 
     }
-
 
     public function mainAction()
     {

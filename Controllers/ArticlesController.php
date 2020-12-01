@@ -30,7 +30,7 @@ class articlesController
     public function viewAction()
     {
 
-        $article = $this->articlesModel->getArticle();
+        $article = $this->articlesModel->get();
 
         $this->view->render('Views/articles/articleView.php', ['article' => $article]);
 
@@ -68,7 +68,7 @@ class articlesController
             $errors = $this->articlesModel->validate($formInfo);
             if (sizeof($errors) == 0){
 
-                $this->articlesModel->create($insertIntoDB);
+                $this->articlesModel->putDB($insertIntoDB);
                 header("Location: /articles");
             } else {
                 $this->view->render('Views/articles/articlesCreate.php', ['errors' => $errors], ['info' => $formInfo]);
@@ -81,7 +81,7 @@ class articlesController
 
     public function updateAction()
     {
-
+        $recordUpdate = $this->articlesModel->get();
 
         $updateData = Router::getInstance()->getFormInfo();
 
@@ -93,7 +93,7 @@ class articlesController
 
 
             }else{
-                $this->articlesModel->update($updateData);
+                $this->articlesModel->updateArticle($updateData);
                 header("Location: /articles");
             }
         }
@@ -102,11 +102,9 @@ class articlesController
 
     public function deleteAction()
     {
-
         $article = $this->articlesModel->delete();
 
         $this->view->render('Views/articles/articleDelete.php', ['article' => $article]);
-
     }
 
 }
