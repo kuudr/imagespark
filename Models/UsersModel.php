@@ -4,7 +4,7 @@ use Core\Model;
 class usersModel extends Model
 
 {
-    protected $table = 'imagespark.users';
+    protected $table = 'users';
 
     protected $columns = 'login, name, surname, email, address';
 

@@ -21,7 +21,7 @@ abstract class Model {
         static $db = null;
 
         if ($db === null) {
-            $dsn = 'mysql:host=' . dbConn::HOST . ';dbname=' . dbConn::DB_NAME . ';charset=utf8';
+            $dsn = 'mysql:host=' . dbConn::HOST . ';dbname=' . dbConn::DB_NAME . ';   charset=utf8';
             $db = new PDO($dsn, dbConn::DB_USER, dbConn::DB_PASSWORD);
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE , PDO::FETCH_ASSOC);

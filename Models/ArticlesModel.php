@@ -5,7 +5,7 @@ use Core\Model;
 class articleModel extends Model
 {
 
-    public $table = 'imagespark.articles';
+    public $table = 'articles';
 
     public $columns = 'article_name, text, created_by, created_at';
 
