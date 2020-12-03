@@ -14,7 +14,10 @@ if ($argc == 2) {
     $params = array(
         'm::' => 'migrate::',
         'd::' => 'down::',
-        'c::' => 'create::'
+        'c::' => 'create::',
+        'b::' => 'backup::',
+        'r::' => 'restore::'
+
     );
     $options = getopt(implode('', array_keys($params)), $params);
     $migration = new Migration(
@@ -25,11 +28,13 @@ if ($argc == 2) {
         TABLE_CURRENT_STATE
     );
     if(isset($options['migrate']) || isset($options['m'])) {
-        $migration->up();
-    } elseif (isset($options['down']) || isset($options['d'])) {
-        $migration->down();
-    } elseif (isset($options['create']) ||  isset($options['c']) ) {
-       $migration->make($options['c'], time());
+        $migration->migrate();
+    } elseif (isset($options['backup']) || isset($options['b'])) {
+        // опция backup (создание резервной копии)
+        $migration->backup();
+    } elseif (isset($options['restore']) || isset($options['r'])) {
+        // опция restore (восстановление из резервной копии)
+        $migration->restore();
     } else {
         echo 'Неизвестная опция', PHP_EOL;
     }
