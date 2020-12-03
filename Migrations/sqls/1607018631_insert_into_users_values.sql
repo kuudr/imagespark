@@ -1,0 +1,3 @@
+INSERT INTO  users (login, name, surname, email, address) VALUES ('a.kuudr', 'Александр', 'Кудряшкин', 'alxkdr@icloud.com', 'Москва, Химки, ул. Молодежная 74');
+INSERT INTO  users (login, name, surname, email, address) VALUES ('test', 'Тест', 'Тестович', 'test@test.ru', 'Mongolia');
+INSERT INTO  users (login, name, surname, email, address) VALUES ('vasya', 'Василий', 'Пупкин', 'vasya@icloud.com', 'Тестовая планета');

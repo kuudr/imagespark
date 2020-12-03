@@ -1,26 +1,18 @@
 <?php
 namespace Migrations;
+use Core\Model;
 
-/**
- * Класс для изменения состояния базы данных и учета этих изменений
- */
 class Migration
 {
 
+    private $db;
     private $host;
-
     private $name;
-
     private $user;
-
     private $pass;
-
     private $stateTable;
-
     private $sqlDir;
-
     private $backupDir;
-
     private $database;
 
 
@@ -30,7 +22,6 @@ class Migration
         $this->name = $name;
         $this->user = $user;
         $this->pass = $pass;
-
         $this->stateTable = $stateTable;
         $this->sqlDir = str_replace('\\', '/', realpath($sqlDir)) . '/';
         $this->backupDir = str_replace('\\', '/', realpath($backupDir)) . '/';
@@ -42,68 +33,35 @@ class Migration
     public function migrate()
     {
 
-        // получаем список файлов для миграции
         $files = $this->getNewFiles();
 
-        // нечего делать, база данных в актуальном состоянии
         if (empty($files)) {
-            echo 'База данных в последнем состоянии';
+            echo "База данных в последнем состоянии \n ";
             return;
         }
 
-        // создаем резервную копию текущего состояния
         if (!$this->isEmpty()) {
             $this->backup();
             echo PHP_EOL;
         }
 
-        echo 'Начало миграции', PHP_EOL;
+        echo "Начало миграции \n", PHP_EOL;
         foreach ($files as $file) {
             $this->execute($file);
-            echo 'Execute file ', basename($file), PHP_EOL;
+            echo 'Выполнение файла ', basename($file), PHP_EOL;
         }
 
-        echo 'Миграция базы данных выполнена';
+        echo "Миграция базы данных выполнена \n";
     }
 
-
-    public function state()
-    {
-        // выводим список старых файлов
-        $oldFiles = $this->getOldFiles();
-        echo 'Old files in folder ' . $this->sqlDir . ':';
-        if (!empty($oldFiles)) {
-            $i = 1;
-            foreach ($oldFiles as $file) {
-                echo PHP_EOL, '    ', $i, '. ', basename($file);
-                $i++;
-            }
-        } else {
-            echo PHP_EOL, '    Old files not found';
-        }
-        // выводим список новых файлов
-        $newFiles = $this->getNewFiles();
-        echo PHP_EOL, 'New files in folder ' . $this->sqlDir . ':';
-        if (!empty($newFiles)) {
-            $i = 1;
-            foreach ($newFiles as $file) {
-                echo PHP_EOL, '    ', $i, '. ', basename($file);
-                $i++;
-            }
-        } else {
-            echo PHP_EOL, '    New files not found';
-        }
-    }
 
     public function backup()
     {
-        // резервную копию создаем, если в БД есть таблицы
         if ($this->isEmpty()) {
             echo 'Не найдено таблиц в БД';
             return;
         }
-        // выполняем команду mysqldump
-        echo 'Create backup of current state';
+        echo 'Создание бэкапа текущего состояния';
         $backupName = $this->backupDir . $this->name . '-' . date('d.m.Y-H.i.s') . '.sql';
         if ($this->pass != '') {
             $command = 'mysqldump -u' . $this->user . ' -p' . $this->pass . ' -h ' . $this->host .
@@ -115,9 +73,6 @@ class Migration
         shell_exec($command);
     }
 
-    /**
-     * Функция восстанавливает базу данных из резервной копии
-     */
     public function restore()
     {
         $backupName = $this->choose();
@@ -135,7 +90,7 @@ class Migration
             $this->database->execute($query);
 
         }
-        echo 'Restore database from backup';
+        echo "Восстановление БД из резервной копии \n";
         if ($this->pass != '') {
             $command = 'mysql -u' . $this->user . ' -p' . $this->pass . ' -h ' . $this->host .
                 ' -D ' . $this->name . ' < ' . $backupName;
@@ -163,7 +118,6 @@ class Migration
 
     private function getNewFiles()
     {
-        // получаем список всех sql-файлов
         $items = scandir($this->sqlDir);
         $allFiles = array();
         foreach ($items as $item) {
@@ -172,7 +126,7 @@ class Migration
             }
             $allFiles[] = $this->sqlDir . $item;
         }
-        // получаем список старых файлов
+
         $oldFiles = $this->getOldFiles();
 
         return array_diff($allFiles, $oldFiles);
@@ -189,8 +143,6 @@ class Migration
         }
         shell_exec($command);
 
-        // добавляем запись в таблицу учета миграций, отмечая тот факт,
-        // что состояние базы данных изменилось
         $query = 'INSERT INTO `' . $this->stateTable . '` (`name`) VALUES ("' . basename($file) . '")';
         $this->database->execute($query);
     }
@@ -207,13 +159,12 @@ class Migration
     {
         $items = scandir($this->backupDir);
         if (count($items) == 2) {
-            echo 'Backup files not found', PHP_EOL;
+            echo "Не найдено файлов резервных копий \n", PHP_EOL;
             return false;
         }
-        // выводим список всех файлов резервных копий с номерами 1,2,3,...
-        echo 'Choose backup file to restore:', PHP_EOL;
+        echo 'Выберите файл резервной копии:', PHP_EOL;
         $i = 0;
-        $numbers = array(); // массив всех номеров файлов, для дальнейшей проверки
+        $numbers = array();
         foreach ($items as $item) {
             if ($item == '.' || $item == '..') {
                 continue;
@@ -222,14 +173,13 @@ class Migration
             $numbers[] = $i;
             echo $i, '. ', $item, PHP_EOL;
         }
-        while (true) { // пока не будет выбран правильный номер файла
-            echo 'Enter number of backup file: ';
+        while (true) {
+            echo 'Введите номер файла резервной копии: ';
             $number = fgets(STDIN);
-            if (in_array($number, $numbers)) { // проверяем корректность номера файла
+            if (in_array($number, $numbers)) {
                 break;
             }
         }
-        // получаем имя файла резервной копии по ее номеру в списке
         $i = 0;
         foreach ($items as $item) {
             if ($item == '.' || $item == '..') {
@@ -237,10 +187,16 @@ class Migration
             }
             $i++;
             if ($i == $number) {
-                // возвращем полное имя файла резервной копии
+
                 return $this->backupDir . $item;
             }
         }
+    }
+
+    public function make($name, $time) {
+
+        file_put_contents($this->sqlDir . '/' . (string) $time . '_' . $name . '.sql', '');
+
     }
 
 }

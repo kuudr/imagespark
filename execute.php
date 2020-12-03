@@ -17,7 +17,6 @@ if ($argc == 2) {
         'c::' => 'create::',
         'b::' => 'backup::',
         'r::' => 'restore::'
-
     );
     $options = getopt(implode('', array_keys($params)), $params);
     $migration = new Migration(
@@ -35,6 +34,8 @@ if ($argc == 2) {
     } elseif (isset($options['restore']) || isset($options['r'])) {
         // опция restore (восстановление из резервной копии)
         $migration->restore();
+    } elseif (isset($options['create']) ||  isset($options['c']) ) {
+        $migration->make($options['c'], time());
     } else {
         echo 'Неизвестная опция', PHP_EOL;
     }
