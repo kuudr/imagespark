@@ -27,7 +27,6 @@ class Migration {
 
     public function up() {
 
-        // получаем список файлов для миграции
         $files = $this->getNewFiles();
 
         if (empty($files)) {
@@ -44,9 +43,8 @@ class Migration {
         echo "Миграция выполнена \n";
     }
 
-
     public function down() {
-        // получаем список файлов для отката
+
         $files = $this->getNewFilesToDown();
 
         if (empty($files)) {
@@ -64,33 +62,6 @@ class Migration {
 
     }
 
-    public function state() {
-        // выводим список старых файлов
-        $oldFiles = $this->getOldFiles();
-        echo 'Старые файлы: ' . $this->sqlDir . ':';
-        if (!empty($oldFiles)) {
-            $i = 1;
-            foreach ($oldFiles as $file) {
-                echo PHP_EOL, '    ', $i, '. ', basename($file);
-                $i++;
-            }
-        } else {
-            echo PHP_EOL, '    Старые файлы не найдены';
-        }
-        // выводим список новых файлов
-        $newFiles = $this->getNewFiles();
-        echo PHP_EOL, 'Новые файлы в папке: ' . $this->sqlDir . ':';
-        if (!empty($newFiles)) {
-            $i = 1;
-            foreach ($newFiles as $file) {
-                echo PHP_EOL, '    ', $i, '. ', basename($file);
-                $i++;
-            }
-        } else {
-            echo PHP_EOL, '    Новые файлы не найдены';
-        }
-    }
-
     private function getOldFiles() {
         $oldFiles = array();
         if ($this->isEmpty()) {
@@ -106,7 +77,7 @@ class Migration {
     }
 
     private function getNewFiles() {
-        // получаем список всех sql-файлов
+
         $items = scandir($this->sqlDir);
         $allFiles = array();
         foreach ($items as $item) {
@@ -122,7 +93,7 @@ class Migration {
     }
 
     private function getNewFilesToDown() {
-        // получаем список всех sql-файлов отката
+
         $items = scandir($this->dbDownDir);
         $allFiles = array();
         foreach ($items as $item) {
@@ -136,8 +107,6 @@ class Migration {
 
         return array_diff($allFiles, $oldFiles);
     }
-
-
 
 
     private function execute($file) {

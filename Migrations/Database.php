@@ -37,7 +37,6 @@ class Database {
         return $statementHandler->execute($params);
     }
 
-
     public function fetchAll($query, $params = array()) {
         $statementHandler = $this->pdo->prepare($query);
         $statementHandler->execute($params);
