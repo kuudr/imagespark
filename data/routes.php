@@ -36,11 +36,6 @@ return [
             'action' => 'userAction',
         ],
     //Статьи
-//    '/articles' =>
-//        [
-//            'controller' => 'articlesController',
-//            'action' => 'articlesAction',
-//        ],
     '/articles/' =>
         [
             'controller' => 'articlesController',
