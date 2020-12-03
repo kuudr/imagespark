@@ -12,7 +12,7 @@ class Migration {
 
     private $database;
 
-    public function __construct($host, $name, $user, $pass, $stateTable, $sqlDir = 'dbUp', $dbDownDir = 'dbDown') {
+    public function __construct($host, $name, $user, $pass, $stateTable, $sqlDir = 'Migrations/sqls', $dbDownDir = 'Migrations/dbDown') {
         $this->host = $host;
         $this->name = $name;
         $this->user = $user;
@@ -25,6 +25,12 @@ class Migration {
     }
 
 
+    public function make($name, $time) {
+
+        file_put_contents($this->sqlDir . '/' . (string) $time . '_' . $name . '_up.sql', '');
+        file_put_contents($this->sqlDir . '/' . (string) $time . '_' . $name . '_down.sql', '');
+    }
+
     public function up() {
 
         $files = $this->getNewFiles();
@@ -33,29 +39,42 @@ class Migration {
             echo "База данных в последнем состоянии \n";
             return;
         }
-
         echo "Начало миграции \n ", PHP_EOL;
         foreach ($files as $file) {
+
+        if ($this->isUp($file)) {
             $this->execute($file);
-            echo "Выполнение файла: ", basename($file), PHP_EOL;
+        }
+
+        echo "Выполнение файла: ", basename($file), PHP_EOL;
         }
 
         echo "Миграция выполнена \n";
     }
 
+    private function isUp($fileName) {
+        return (bool) stripos($fileName, '_up');
+    }
+
     public function down() {
 
-        $files = $this->getNewFilesToDown();
+        $files = $this->getOldFiles();
 
         if (empty($files)) {
             echo "Нечего откатывать \n";
             return;
         }
 
+
         echo "Начало отката \n ", PHP_EOL;
         foreach ($files as $file) {
-            $this->execute($file);
+            $downFileName = str_replace('_up', '_down' , $file);
+            $this->execute($downFileName, false);
             echo "Выполнение файла отката: ", basename($file), PHP_EOL;
+
+            $name = $this->getMigrationName($downFileName);
+
+             $this->database->execute("DELETE FROM " . $this->stateTable . " WHERE name = '$name'" );
         }
 
         echo "Откат выполнен! \n";
@@ -71,7 +90,6 @@ class Migration {
         $rows = $this->database->fetchAll($query);
         foreach ($rows as $row) {
             $oldFiles[] = $this->sqlDir . $row['name'];
-            $oldFiles[] = $this->dbDownDir . $row['name'];
         }
         return $oldFiles;
     }
@@ -92,23 +110,23 @@ class Migration {
         return array_diff($allFiles, $oldFiles);
     }
 
-    private function getNewFilesToDown() {
+//    private function getNewFilesToDown() {
+//
+//        $items = scandir($this->dbDownDir);
+//        $allFiles = array();
+//        foreach ($items as $item) {
+//            if ($item == '.' || $item == '..') {
+//                continue;
+//            }
+//            $allFiles[] = $this->dbDownDir . $item;
+//        }
+//
+//        $oldFiles = $this->getOldFiles();
+//
+//        return array_diff($allFiles, $oldFiles);
+//    }
 
-        $items = scandir($this->dbDownDir);
-        $allFiles = array();
-        foreach ($items as $item) {
-            if ($item == '.' || $item == '..') {
-                continue;
-            }
-            $allFiles[] = $this->dbDownDir . $item;
-        }
-
-        $oldFiles = $this->getOldFiles();
-
-        return array_diff($allFiles, $oldFiles);
-    }
-
-    private function execute($file) {
+    private function execute($file, $insertToDb = true) {
         if ($this->pass != '') {
             $command = 'mysql -u' . $this->user . ' -p' . $this->pass . ' -h ' . $this->host .
                 ' -D ' . $this->name . ' < ' . $file;
@@ -117,7 +135,9 @@ class Migration {
                 ' -D ' . $this->name . ' < ' . $file;
         }
         shell_exec($command);
-        $query = 'INSERT INTO `' . $this->stateTable . '` (`name`) VALUES ("' . basename($file) . '")';
+        if ($insertToDb) {
+            $query = 'INSERT INTO `' . $this->stateTable . '` (`name`) VALUES ("' . basename($file) . '")';
+        }
         $this->database->execute($query);
     }
 
@@ -126,5 +146,14 @@ class Migration {
         $rows = $this->database->fetchAll($query);
         return empty($rows);
     }
+
+    private function getMigrationName($path)
+    {
+        $name = '';
+        //todo
+
+        return '1607009642_create_table_articles_up.sql';
+    }
+
 
 }

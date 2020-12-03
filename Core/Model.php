@@ -81,6 +81,5 @@ abstract class Model {
 
     }
 
-
 }
 
