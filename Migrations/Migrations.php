@@ -108,7 +108,6 @@ class Migration {
         return array_diff($allFiles, $oldFiles);
     }
 
-
     private function execute($file) {
         if ($this->pass != '') {
             $command = 'mysql -u' . $this->user . ' -p' . $this->pass . ' -h ' . $this->host .
