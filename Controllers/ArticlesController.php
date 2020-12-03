@@ -43,7 +43,7 @@ class articlesController
 
             $formInfo = Router::getInstance()->getFormInfo();
 
-            $formInfo['created_at'] = date("Y-m-d H:i");
+            $formInfo['created_at'] = date("Y-m-d H:i:s");
             $insertIntoDB = [
                 'article_name' => '',
                 'text' => '',
@@ -55,6 +55,7 @@ class articlesController
             $insertIntoDB['text'] .= $formInfo['text'];
             $insertIntoDB['created_by'] .= $formInfo['created_by'];
             $insertIntoDB['created_at'] .= $formInfo['created_at'];
+
 
             $insertIntoDB = array_map(function ($value) {
 

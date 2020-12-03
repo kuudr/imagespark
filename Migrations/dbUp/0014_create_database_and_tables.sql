@@ -19,4 +19,8 @@ CREATE TABLE IF NOT EXISTS `users` (
                                        `address` varchar(255) NOT NULL,
                                        PRIMARY KEY (`id`),
                                        UNIQUE KEY `users_login_uindex` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+
+INSERT INTO  users (login, name, surname, email, address) VALUES ('a.kuudr', 'Александр', 'Кудряшкин', 'alxkdr@icloud.com', 'Москва, Химки, ул. Молодежная 74');
+INSERT INTO  users (login, name, surname, email, address) VALUES ('test', 'Тест', 'Тестович', 'test@test.ru', 'Mongolia');
+INSERT INTO  users (login, name, surname, email, address) VALUES ('vasya', 'Василий', 'Пупкин', 'vasya@icloud.com', 'Тестовая планета');

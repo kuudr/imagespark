@@ -11,12 +11,13 @@ require 'Migrations.php';
 $help  = 'Usage: php ' . $argv[0] . ' -h|-s|-m|-b|-r' . PHP_EOL;
 $help .= 'Options:' . PHP_EOL;
 $help .= '    -h --help       Show this message' . PHP_EOL;
-$help .= '    -s --state      Текущай статус' . PHP_EOL;
+$help .= '    -s --state      Текущий статус' . PHP_EOL;
 $help .= '    -m --migrate    Миграция' . PHP_EOL;
 if ($argc == 2) { // должна быть только одна опция и это обязательно
     $params = array(
         's::' => 'state::',
         'm::' => 'migrate::',
+        'd::' => 'down::',
     );
     $options = getopt(implode('', array_keys($params)), $params);
 
@@ -34,7 +35,9 @@ if ($argc == 2) { // должна быть только одна опция и �
         // опция state (текущее состояние базы данных)
         $migration->state();
     } elseif (isset($options['migrate']) || isset($options['m'])) {
-        $migration->migrate();
+        $migration->up();
+    } elseif (isset($options['down']) || isset($options['d'])) {
+        $migration->down();
 
     } else {
         echo 'Неизвестная опция', PHP_EOL;
