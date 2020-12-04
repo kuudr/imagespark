@@ -5,4 +5,4 @@ CREATE TABLE `articles` (
                             `created_by` varchar(255) NOT NULL,
                             `created_at` timestamp(6) NOT NULL,
                             PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8

@@ -5,7 +5,7 @@ use Core\Model;
 class Migration
 {
 
-    private $db;
+
     private $host;
     private $name;
     private $user;
@@ -22,6 +22,7 @@ class Migration
         $this->name = $name;
         $this->user = $user;
         $this->pass = $pass;
+
         $this->stateTable = $stateTable;
         $this->sqlDir = str_replace('\\', '/', realpath($sqlDir)) . '/';
         $this->backupDir = str_replace('\\', '/', realpath($backupDir)) . '/';

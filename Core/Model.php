@@ -2,7 +2,7 @@
 namespace Core;
 use data\dbConn;
 use PDO;
-abstract class Model {
+class Model {
 
 
     protected $record;
