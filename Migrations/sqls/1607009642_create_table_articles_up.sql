@@ -1,4 +1,4 @@
-CREATE TABLE `articles` (
+CREATE TABLE IF NOT EXISTS  `articles` (
                             `id` int(11) NOT NULL AUTO_INCREMENT,
                             `article_name` varchar(255) NOT NULL,
                             `text` varchar(8000) CHARACTER SET utf8 NOT NULL,
