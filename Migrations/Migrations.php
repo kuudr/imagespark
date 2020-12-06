@@ -57,9 +57,8 @@ class Migration
         echo "Миграция выполнена \n";
     }
 
-    private function isUp($fileName)
+    private function isUp($fileName): bool
     {
-
         return (bool)stripos($fileName, '_up');
     }
 
@@ -73,51 +72,22 @@ class Migration
         echo "Начало отката \n ", PHP_EOL;
         foreach ($files as $file) {
             $downFileName = str_replace('_up', '_down', $file);
+            $upFileName = str_replace('_down', '_up', $file);
             if ($this->confirm('Применить откат миграции: ' .  basename($downFileName) . '?')) {
                 $this->execute($downFileName, false);
                 echo "Выполнение файла отката: ", basename($downFileName), PHP_EOL;
-                $name = $this->getMigrationName($downFileName);
-                $fileToDel = basename($name);
-                $query =  'DELETE FROM ' . $this->stateTable . ' WHERE name = ' . "'$fileToDel'" ;
+                $name =  basename($upFileName);
+                $query =  'DELETE FROM ' . $this->stateTable . ' WHERE name = ' . "'$name'" ;
+
                 $this->database->execute($query);
                 break;
             }else{
                 echo "Откат был отменен! \n";
             }
 
-
         }
     }
 
-
-
-
-//    public function down() {
-//        $files = $this->getNewFiles();
-//        if (empty($files)) {
-//            echo "Нечего откатывать \n";
-//            return;
-//        }
-//        echo "Начало отката \n ", PHP_EOL;
-//        foreach ($files as $file) {
-//            $downFileName = str_replace('_up', '_down' , $file);{
-//                echo '   ' . basename($downFileName) . PHP_EOL;
-//            }
-//            foreach ($files as $downFile){
-//                if ($this->confirm('Применить откат миграции?'))
-//                    $this->execute($downFile, false);
-//                    echo "Выполнение файла отката: ", basename($downFile), PHP_EOL;
-//
-//            }
-//            $this->execute($downFileName, false);
-//            echo "Выполнение файла отката: ", basename($file), PHP_EOL;
-//            $name = $this->getMigrationName($downFileName);
-//            $query =  'DELETE FROM ' . $this->stateTable . ' WHERE name = ' . "'$name'" ;
-
-//            $this->database->execute($query);
-//        }
-
-//    }
     private function execute($file, $insertToDb = true)
     {
         if ($this->pass != '') {
@@ -138,7 +108,7 @@ class Migration
 
     }
 
-    private function getOldFiles()
+    private function getOldFiles(): array
     {
         $oldFiles = array();
         if ($this->isEmpty()) {
@@ -153,7 +123,7 @@ class Migration
         return $oldFiles;
     }
 
-    private function getNewFiles()
+    private function getNewFiles(): array
     {
 
         $items = scandir($this->sqlDir);
@@ -162,7 +132,10 @@ class Migration
             if ($item == '.' || $item == '..') {
                 continue;
             }
-            $allFiles[] = $this->sqlDir . $item;
+            if ($this->isUp($item)){
+                $allFiles[] = $this->sqlDir . $item;
+            }
+
         }
 
         $oldFiles = $this->getOldFiles();
@@ -171,19 +144,14 @@ class Migration
     }
 
 
-    private function isEmpty()
+    private function isEmpty(): bool
     {
         $query = 'SHOW TABLES';
         $rows = $this->database->fetchAll($query);
         return empty($rows);
     }
 
-    private function getMigrationName($path)
-    {
-        return $path;
-    }
-
-    private function confirm($message)
+    private function confirm($message): bool
     {
         echo $message . ' (yes|no) [yes]: ';
         $input = trim(fgets(STDIN));

@@ -2,63 +2,63 @@
 return [
     '/' =>
         [
-            'controller' => 'usersController',
+            'controller' => 'UsersController',
             'action' => 'mainAction',
         ],
     '/essence' =>
         [
-            'controller' => 'usersController',
+            'controller' => 'UsersController',
             'action' => 'essenceAction',
         ],
     '/users/' =>
         [
-            'controller' => 'usersController',
+            'controller' => 'UsersController',
             'action' => 'getAction',
         ],
     '/users/create' =>
         [
-            'controller' => 'usersController',
+            'controller' => 'UsersController',
             'action' => 'createAction',
         ],
     '/user/{id}/update' =>
         [
-            'controller' => 'usersController',
+            'controller' => 'UsersController',
             'action' => 'updateAction',
         ],
     '/user/{id}/delete' =>
         [
-            'controller' => 'usersController',
+            'controller' => 'UsersController',
             'action' => 'deleteAction',
         ],
     '/user/{id}/view' =>
         [
-            'controller' => 'usersController',
+            'controller' => 'UsersController',
             'action' => 'userAction',
         ],
     //Статьи
     '/articles/' =>
         [
-            'controller' => 'articlesController',
+            'controller' => 'ArticlesController',
             'action' => 'getAction',
         ],
     '/articles/create/' =>
         [
-            'controller' => 'articlesController',
+            'controller' => 'ArticlesController',
             'action' => 'createAction',
         ],
     '/article/{id}/update/' =>
         [
-            'controller' => 'articlesController',
+            'controller' => 'ArticlesController',
             'action' => 'updateAction',
         ],
     '/article/{id}/delete/' =>
         [
-            'controller' => 'articlesController',
+            'controller' => 'ArticlesController',
             'action' => 'deleteAction',
         ],
     '/article/{id}/view/' =>
         [
-            'controller' => 'articlesController',
+            'controller' => 'ArticlesController',
             'action' => 'viewAction',
         ],
 ];
