@@ -1,0 +1,162 @@
+
+html{
+    font-family: 'Roboto Mono', monospace;
+    height: 100%;
+}
+
+/* RESET */
+body {
+    position:relative;
+    padding-bottom: 70px;
+}
+ul {
+    margin: 0;
+    padding: 0;
+}
+li {
+    display: inline-block;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.container{
+    max-width: 1170px;
+    margin: 0 auto;
+    padding-left: 0 15px;
+
+}
+nav {
+    /* position: absolute; */
+    display: flex;
+    justify-content: center;
+    /*padding-top: 20px;*/
+    /*padding-bottom: 20px;*/
+    z-index: 50;
+}
+
+.menu_nav li{
+    padding-right: 30px;
+}
+.logo {
+    position: relative;
+    width: 150px;
+    /*float: right;*/
+}
+.login_button{
+    background-color: #f8dcdc;
+    border: none;
+}
+.menu_nav{
+    border: 3px dotted peachpuff;
+}
+.footer_year{
+    background-color: peachpuff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 25px;
+    text-align: center;
+}
+.contacts__form-group{
+    border: none;
+}
+.main {
+    box-sizing: border-box;
+    padding: 60px 30px;
+    height: 85%;
+    overflow-y: scroll;
+}
+.contacts__form-group {
+    margin-bottom: 30px;
+    height: 5px;
+    width: 100%;
+
+}
+
+.contacts__form-group input {
+    font-family: "Roboto Mono";
+    width: 100%;
+}
+
+.contacts__form-group textarea {
+    font-family: "Roboto Mono";
+}
+.main__center {
+    height: 100%;
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto 15vh;
+}
+.align-center {
+    text-align: center;
+}
+.btn{
+    font-family: 'Roboto Mono', monospace;
+    display: inline-block;
+    border-width: 1px;
+    border-style: solid;
+    text-align: center;
+    padding: 10px 30px;
+    background-color: #e2a957;
+}
+.btn-users{
+    font-family: 'Roboto Mono', monospace;
+    display: inline-block;
+    border-width: 1px;
+    border-style: solid;
+    text-align: center;
+    height: 20px;
+    width: 100px;
+    background-color: #e2a957;
+    margin-left: 90px;
+}
+.error_form{
+    margin: 3px;
+    color: red;
+}
+
+.show_users{
+    text-align: left;
+    margin: 0 auto;
+    padding-right: 80px;
+    border-collapse: collapse;
+    /*border: 1px solid red;*/
+}
+.table_line{
+    border: 1px solid #33ff00;
+}
+.table_row{
+    border: 1px solid #e2a957;
+}
+.btn-delete-red{
+    background-color: red;
+    width: 80px;
+}
+.btn-delete-green{
+    background-color: #8fd98f;
+}
+.h1-red{
+    color: red;
+    font-weight: bold;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    h1 {
+        @apply text-2xl;
+    }
+    h2 {
+        @apply text-xl;
+    }
+}
+.w-5 h-5{
+    height: 1px;
+    width: 1px;
+}
+
