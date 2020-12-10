@@ -13,16 +13,9 @@ use Symfony\Component\Console\Input\Input;
 class UsersController extends Controller
 {
 
-//    public function index()
-//    {
-//        $users = Users::query()->get();
-//
-//        return view('users/users', ['users' => $users]);
-//    }
 
     public function index()
     {
-//        $users = Users::query()->get();
 
         return view('users/users',
             ['users' => DB::table('users')->paginate(5)

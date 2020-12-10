@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use willvincent\Rateable\Rateable;
 
 
 /**
@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Articles extends Model
 {
+    use Rateable;
 
     public $table = 'articles';
 
@@ -32,6 +33,8 @@ class Articles extends Model
        'created_at',
        'updated_at',
    ];
+
+
 
 }
 

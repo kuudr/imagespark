@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Articles;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
+use willvincent\Rateable\RateableServiceProvider;
+use Willvincent\Rateable\Rating;
 
 class ArticlesController extends Controller
 {
@@ -14,7 +17,9 @@ class ArticlesController extends Controller
     {
         $articles = Articles::query()->get();
 
-        return view('articles/articles', ['articles' => $articles]);
+        return view('articles/articles',
+            ['articles' => DB::table('articles')->paginate(5)
+            ]);
     }
 
 
@@ -54,10 +59,13 @@ class ArticlesController extends Controller
         /**
          * @var Articles|null $article
          */
-
         $article = Articles::query()->findOrFail($id);
+        return view('articles/articleView',
+            [
+                'article' => $article,
+                'avg' => $article->ratings()->avg('rating')
 
-        return view('articles/articleView', ['article' => $article]);
+            ]);
     }
 
 
@@ -106,4 +114,17 @@ class ArticlesController extends Controller
 
         return view('articles/articleDelete', ['user'=>$article]);
     }
+
+
+    public function rating(Request $request, $id)
+    {
+
+        request()->validate(['rate' => 'required']);
+        $article = Articles::query()->findOrFail($id);
+        $rating = new \willvincent\Rateable\Rating;
+        $rating->rating = $request->rate;
+        $article->ratings()->save($rating);
+        return Redirect('/articles');
+    }
+
 }

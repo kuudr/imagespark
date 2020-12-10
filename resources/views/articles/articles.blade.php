@@ -12,23 +12,26 @@
         <th></th>
         <th></th>
     </tr>
-<?php foreach ($articles as $article):?>
+@foreach ($articles as $article)
 <tr class="table_row">
-    <td><?= $article['name']?></td>
-    <td><?= $article['text']?></td>
-    <td><?= $article['created_by']?></td>
-    <td><?= $article['created_at']?></td>
+    <td>{{ $article->name }}</td>
+    <td>{{ $article->text }}</td>
+    <td>{{ $article->created_by }}</td>
+    <td>{{ $article->created_at }}</td>
     <td>
-       <a href="{{ route('articles.show', ['article' => $article['id']]) }}" class="btn-users">View</a>
-        <a href="{{ route('articles.edit', ['article' => $article['id']]) }}"
+       <a href="{{ route('articles.show',  $article->id) }}" class="btn-users">View</a>
+        <a href="{{ route('articles.edit',  $article->id) }}"
            class="btn-users">Update</a>
-        <form method="post" action =  "{{ route('articles.destroy', ['article' => $article['id']]) }}">
+        <form method="post" action =  "{{ route('articles.destroy',  $article->id) }}">
             @csrf
             @method('DELETE')
             <button  onclick="return confirm('Вы уверены, что хотите удалить данную статью?')" class="btn-users">Delete</button>
         </form>
     </td>
-    <?php endforeach;?>
+    @endforeach
 </tr>
 </table>
+<div class="main__center">
+    {{ $articles->links("pagination::bootstrap-4") }}
+</div>
 @endsection
