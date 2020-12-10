@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Articles;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
@@ -15,12 +16,14 @@ class ArticlesController extends Controller
 
     public function index()
     {
-        $articles = Articles::query()->get();
 
         return view('articles/articles',
-            ['articles' => DB::table('articles')->paginate(5)
+            [
+                'articles' => DB::table('articles')->paginate(5)
             ]);
     }
+
+
 
 
     public function create()
@@ -37,7 +40,7 @@ class ArticlesController extends Controller
 
         ]);
         if ($validator->fails()) {
-            return redirect('articles/create')
+            return redirect(Route('articles.create'))
                 ->withErrors($validator)
                 ->withInput();
         }else {
@@ -48,10 +51,10 @@ class ArticlesController extends Controller
             ]);
 
             $article->save();
-
-            return redirect('/articles')->with('success', 'Статья добавлена!');
+            return redirect(Route('articles.index')) ;
         }
     }
+
 
 
     public function show($id)
@@ -60,6 +63,7 @@ class ArticlesController extends Controller
          * @var Articles|null $article
          */
         $article = Articles::query()->findOrFail($id);
+
         return view('articles/articleView',
             [
                 'article' => $article,
@@ -87,7 +91,7 @@ class ArticlesController extends Controller
 
 
         if ($validator->fails()) {
-            return redirect('articles/' . $id . '/edit')
+            return redirect(Route('articles.edit'))
                 ->withErrors($validator);
         } else {
             /**
@@ -97,7 +101,7 @@ class ArticlesController extends Controller
             $article->name = $request->get('name');
             $article->text = $request->get('text');
             $article->save();
-            return Redirect('/articles');
+            return redirect(Route('articles.index'));
         }
     }
 
@@ -120,11 +124,16 @@ class ArticlesController extends Controller
     {
 
         request()->validate(['rate' => 'required']);
+
         $article = Articles::query()->findOrFail($id);
+
         $rating = new \willvincent\Rateable\Rating;
+
         $rating->rating = $request->rate;
+
         $article->ratings()->save($rating);
-        return Redirect('/articles');
+
+        return redirect(Route('articles.index'));
     }
 
 }

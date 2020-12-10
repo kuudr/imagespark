@@ -18,7 +18,8 @@ class UsersController extends Controller
     {
 
         return view('users/users',
-            ['users' => DB::table('users')->paginate(5)
+            [
+                'users' => DB::table('users')->paginate(5)
             ]);
     }
 
@@ -43,7 +44,7 @@ class UsersController extends Controller
             'address' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect('users/create')
+            return redirect(Route('users.create'))
                 ->withErrors($validator)
                 ->withInput();
         }else{
@@ -57,7 +58,7 @@ class UsersController extends Controller
 
         $user->save();
 
-        return redirect('/users')->with('success', 'Пользователь добавлен!');
+        return redirect(Route('users.index'));
 
         }
 
@@ -98,7 +99,7 @@ class UsersController extends Controller
 
 
         if ($validator->fails()) {
-            return redirect('users/' . $id . '/edit')
+            return redirect(Route('users.edit'))
                 ->withErrors($validator);
         } else {
             /**
@@ -111,7 +112,7 @@ class UsersController extends Controller
             $user->email = $request->get('email');
             $user->address = $request->get('address');
             $user->save();
-            return Redirect('/users');
+            return redirect(Route('users.index'));
         }
 
 
